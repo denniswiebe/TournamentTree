@@ -17,7 +17,7 @@ namespace TournamentTree
             RemainingPlayers = Players;
             CreateTree();
             Console.WriteLine("------------------------------------------------------");
-            Console.WriteLine("Elimation starts!");
+            Console.WriteLine("Elimination starts!");
         }
 
         public void CreateTree()
