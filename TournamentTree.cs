@@ -9,21 +9,68 @@ namespace TournamentTree
     {
         public IList<Player> Players { get; set; }
 
-        public IList<Player> RemainingPlayers { get; set; } // Players are being kicked out in the future. Dont know if needed ?!
+        public bool FirstTree { get; set; } = true;
 
         public TournamentTree(List<Player> players)
         {
             Players = players;
-            RemainingPlayers = Players;
             CreateTree();
-            Console.WriteLine("------------------------------------------------------");
+            FirstTree = false;            
             Console.WriteLine("Elimination starts!");
+            while (Players.Count != 1)
+            {
+                Console.WriteLine("Next Round!");
+                List<Player> losers = new List<Player>();
+                for (int i = 0; i < Players.Count - 1; i += 2)
+                {
+                    Console.WriteLine("Who is the Winner?");
+                    Console.WriteLine(Players[i].PlayerName + " Or " + Players[i + 1].PlayerName);
+                    bool correctPlayerInput = false;
+                    while (!correctPlayerInput)
+                    {
+                        string whoWonInput = Console.ReadLine();
+                        if (whoWonInput == Players[i].PlayerName)
+                        {
+                            Console.WriteLine("You Choose: " + Players[i].PlayerName);
+                            losers.Add(Players[i + 1]);
+                            correctPlayerInput = true;
+                        }
+                        else if (whoWonInput == Players[i + 1].PlayerName)
+                        {
+                            Console.WriteLine("You Choose: " + Players[i + 1].PlayerName);
+                            losers.Add(Players[i]);
+                            correctPlayerInput = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Wrong Input! Try Again.");
+                        }
+                        Console.WriteLine();
+                    }
+                }
+
+                foreach (Player loser in losers)
+                {
+                    Players.Remove(loser);
+                }
+                if (Players.Count != 1)
+                {
+                    Console.Clear();
+                    CreateTree();
+                }
+            }
+            Console.Clear();
+            Console.WriteLine("Winner of the Tournament: " + Players[0].PlayerName);
         }
 
         public void CreateTree()
         {
             Console.WriteLine("------------------------------------------------------");
-            Shuffle(Players);
+            Console.WriteLine();
+            if (FirstTree)
+            {
+                Shuffle(Players);
+            }
             for (int i = 0; i < Players.Count; i++)
             {
                 Console.WriteLine(Players[i].PlayerName);
@@ -35,7 +82,8 @@ namespace TournamentTree
                 {
                     Console.WriteLine(""); // for a better Visualization who plays against each other
                 }
-            }    
+            }
+            Console.WriteLine("------------------------------------------------------");
         }
 
         public void Shuffle(IList<Player> playerList)
@@ -47,7 +95,7 @@ namespace TournamentTree
                 var randomNumber = rand.Next(0, playerList.Count);
                 playerList[i] = playerList[randomNumber];
                 playerList[randomNumber] = tempPlayer;
-;            }
+            }
         }
 
     }

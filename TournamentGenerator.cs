@@ -19,6 +19,7 @@ namespace TournamentTree
             ConfigureAmountOfPlayers();
             Console.WriteLine("Enter now the Names for the Players!");
             CreatePlayers();
+            Console.Clear();
             Console.WriteLine("All Players created!");
 
             Console.WriteLine("Do You want to play with Groupstage or without? Press Y for a GroupPhase or something else for an instant Tournament Tree!");
@@ -38,6 +39,7 @@ namespace TournamentTree
             }
             else
             {
+                Console.Clear();
                 Console.WriteLine("Creating Tournament Tree!");
                 TournamentTree tree = new TournamentTree(AllPlayers);
             }
