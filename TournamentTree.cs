@@ -15,7 +15,12 @@ namespace TournamentTree
         {
             Players = players;
             CreateTree();
-            FirstTree = false;            
+            FirstTree = false;
+            StartTreeGenerator();
+        }
+
+        public void StartTreeGenerator()
+        {
             Console.WriteLine("Elimination starts!");
             while (Players.Count != 1)
             {
@@ -49,10 +54,8 @@ namespace TournamentTree
                     }
                 }
 
-                foreach (Player loser in losers)
-                {
-                    Players.Remove(loser);
-                }
+                EliminateLosingPlayers(losers);
+                
                 if (Players.Count != 1)
                 {
                     Console.Clear();
@@ -63,7 +66,15 @@ namespace TournamentTree
             Console.WriteLine("Winner of the Tournament: " + Players[0].PlayerName);
         }
 
-        public void CreateTree()
+        private void EliminateLosingPlayers(List<Player> losers)
+        {
+            foreach (Player loser in losers)
+            {
+                Players.Remove(loser);
+            }
+        }
+
+        private void CreateTree()
         {
             Console.WriteLine("------------------------------------------------------");
             Console.WriteLine();
@@ -86,7 +97,7 @@ namespace TournamentTree
             Console.WriteLine("------------------------------------------------------");
         }
 
-        public void Shuffle(IList<Player> playerList)
+        private void Shuffle(IList<Player> playerList)
         {
             Random rand = new Random();
             for (int i = 0; i < playerList.Count; i++)

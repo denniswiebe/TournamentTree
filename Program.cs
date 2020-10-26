@@ -8,6 +8,7 @@ namespace TournamentTree
         static void Main(string[] args)
         {
             TournamentGenerator tournament = new TournamentGenerator();
+            tournament.StartGenerate();
         }
     }
 }
