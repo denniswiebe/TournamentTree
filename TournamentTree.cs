@@ -16,7 +16,6 @@ namespace TournamentTree
             Players = players;
             CreateTree();
             FirstTree = false;
-            StartTreeGenerator();
         }
 
         public void StartTreeGenerator()

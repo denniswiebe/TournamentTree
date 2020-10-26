@@ -29,7 +29,17 @@ namespace TournamentTree
             Console.Clear();
             if (WithGroupPhase)
             {
-                Console.WriteLine("Creating Groups");
+                if (CheckIfGroupsArePossible())
+                {
+                    Console.WriteLine("Creating Groups");
+                    GroupPhase groupPhase = new GroupPhase(AllPlayers);
+                    //
+                }
+                else
+                {
+                    Console.WriteLine("Can not generate the Groups. You need at least '4' Players!");
+                    Console.WriteLine("Restart the Program!");
+                }
             }
             else
             {
@@ -48,6 +58,18 @@ namespace TournamentTree
 
             // let the Console left open
             Console.ReadLine();
+        }
+
+        private bool CheckIfGroupsArePossible()
+        {
+            if(AmountOfPlayers >= 4)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private bool CheckIfTreeIsPossible()
@@ -72,6 +94,7 @@ namespace TournamentTree
             {
                 Console.WriteLine("How many Players do you want to be in the Tournament?");
                 Console.WriteLine("Keep in mind that a Tournament Tree has to be 2, 4, 8, 16, 32 or 64 Players");
+                Console.WriteLine("For a GroupPhase you need at least '4' Players");
                 string amountOfPlayersInput = Console.ReadLine();
                 if (int.TryParse(amountOfPlayersInput, out int result))
                 {
@@ -83,7 +106,7 @@ namespace TournamentTree
                     else
                     {
                         Console.WriteLine("Amount of Players must be atleast '2' and " +
-                            "maxium '64'");
+                            "maximum '64'.");
                     }
                 }
                 else

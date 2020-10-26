@@ -9,6 +9,7 @@ namespace TournamentTree
         public List<Player> Players { get; set; }
         public char GroupChar { get; set; }
 
+
         public Group(List<Player> players)
         {
             Players = players;
