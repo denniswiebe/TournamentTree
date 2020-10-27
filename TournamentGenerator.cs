@@ -33,7 +33,7 @@ namespace TournamentTree
                 {
                     Console.WriteLine("Creating Groups");
                     GroupPhase groupPhase = new GroupPhase(AllPlayers);
-                    //
+                    groupPhase.GenerateGroups();
                 }
                 else
                 {

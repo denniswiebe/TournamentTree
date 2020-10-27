@@ -6,13 +6,19 @@ namespace TournamentTree
 {
     class Group
     {
-        public List<Player> Players { get; set; }
-        public char GroupChar { get; set; }
+        public IList<Player> Players { get; set; }
+        public int GroupId { get; set; }
 
 
-        public Group(List<Player> players)
+        public Group(int id)
         {
-            Players = players;
+            Players = new List<Player>();
+            GroupId = id;
+        }
+
+        public void AddPlayer(Player player)
+        {
+            Players.Add(player);
         }
     }
 }

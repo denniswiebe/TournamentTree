@@ -7,7 +7,7 @@ namespace TournamentTree
 {
     class GroupPhase
     {
-        public List<Group> Groups { get; set; }
+        public IList<Group> Groups { get; set; }
 
         public IList<Player> Players { get; set; }
 
@@ -21,13 +21,20 @@ namespace TournamentTree
 
         public GroupPhase(List<Player> players)
         {
+            Groups = new List<Group>();
             Players = players;
-            ValidateAmountOfGroups();
+        }
+
+        public void GenerateGroups()
+        {            
+            BuildingGroups(ValidateAmountOfGroups());
+            PlacePlayersInGroups();
+            ShowGroupsOnConsole();
         }
 
         private int ValidateAmountOfGroups()
         {
-            if(Players.Count < 12)
+            if (Players.Count < 12)
             {
                 return (int)AmountOfGroups.Small;
             }
@@ -47,7 +54,59 @@ namespace TournamentTree
 
         private void BuildingGroups(int amount)
         {
+            for (int i = 0; i < amount; i++)
+            {
+                Group group = new Group(i+1);
+                Groups.Add(group);
+            }
+            Console.WriteLine(amount + " Gruppen wurden erstellt.");
+        }
 
+        private void PlacePlayersInGroups()
+        {
+            Shuffle(Players);
+            int counter = 0;
+            while (counter < Players.Count)
+            {
+                foreach (Group group in Groups)
+                {
+                    if (counter < Players.Count)
+                    {
+                        group.AddPlayer(Players[counter++]);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+            // Players randomly placed inside the Groups.
+        }
+
+        private void ShowGroupsOnConsole()
+        {
+            Console.Clear();
+            foreach (Group group in Groups)
+            {
+                Console.WriteLine("Group " + group.GroupId);
+                foreach (Player player in group.Players)
+                {
+                    Console.WriteLine("  " + player.PlayerName);
+                }                
+                Console.WriteLine();
+            }
+        }
+
+        private void Shuffle(IList<Player> playerList)
+        {
+            Random rand = new Random();
+            for (int i = 0; i < playerList.Count; i++)
+            {
+                var tempPlayer = playerList[i]; // keep a Player in Mind to swap it with another
+                var randomNumber = rand.Next(0, playerList.Count);
+                playerList[i] = playerList[randomNumber];
+                playerList[randomNumber] = tempPlayer;
+            }
         }
     }
 }
