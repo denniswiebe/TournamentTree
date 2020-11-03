@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TournamentTree.Component" Collapsed="true">
+    <Position X="7.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Component.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TournamentTree.Group" Collapsed="true">
+    <Position X="11" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAAAAAAAgAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Group.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TournamentTree.GroupPhase" Collapsed="true">
+    <Position X="8.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAEAAAAAAYQCAAAAAAIAAEAAgAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>GroupPhase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TournamentTree.Match" Collapsed="true">
+    <Position X="12.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAACAACAAAAAAAAAAAAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>Match.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TournamentTree.Player" Collapsed="true">
+    <Position X="14.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAgAAAAAAAAAgAAAAAAAAgAAAAwAAAAAA=</HashCode>
+      <FileName>Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TournamentTree.Program" Collapsed="true">
+    <Position X="11" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TournamentTree.TournamentGenerator" Collapsed="true">
+    <Position X="12.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAEAAAhABBAAAAAAAAIBAAAAAAACBAAAAAAAA=</HashCode>
+      <FileName>TournamentGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TournamentTree.TournamentTree" Collapsed="true">
+    <Position X="6.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAQAIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>TournamentTree.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
