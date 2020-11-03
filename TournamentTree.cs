@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TournamentTree
 {
-    class TournamentTree
+    class TournamentTree : Component
     {
         public IList<Player> Players { get; set; }
 
@@ -79,7 +79,7 @@ namespace TournamentTree
             Console.WriteLine();
             if (FirstTree)
             {
-                Shuffle(Players);
+                ShufflePlayers(Players);
             }
             for (int i = 0; i < Players.Count; i++)
             {
@@ -95,18 +95,5 @@ namespace TournamentTree
             }
             Console.WriteLine("------------------------------------------------------");
         }
-
-        private void Shuffle(IList<Player> playerList)
-        {
-            Random rand = new Random();
-            for (int i = 0; i < playerList.Count; i++)
-            {
-                var tempPlayer = playerList[i]; // keep a Player in Mind to swap it with another
-                var randomNumber = rand.Next(0, playerList.Count);
-                playerList[i] = playerList[randomNumber];
-                playerList[randomNumber] = tempPlayer;
-            }
-        }
-
     }
 }

@@ -5,11 +5,13 @@ using System.Text;
 
 namespace TournamentTree
 {
-    class GroupPhase
+    class GroupPhase : Component
     {
         public IList<Group> Groups { get; set; }
 
         public IList<Player> Players { get; set; }
+
+        public IList<Match> AllMatches { get; set; } = new List<Match>();
 
         enum AmountOfGroups : int
         {
@@ -27,9 +29,11 @@ namespace TournamentTree
 
         public void GenerateGroups()
         {            
-            BuildingGroups(ValidateAmountOfGroups());
-            PlacePlayersInGroups();
-            ShowGroupsOnConsole();
+            BuildingGroups(ValidateAmountOfGroups()); // Create Groups based on amount of Players
+            PlacePlayersInGroups(); // place the players inside the groups
+            ShowGroupsOnConsole(); // Show initalized Groups
+            PlayMatches(); // play all matches
+            ShowGroupsOnConsole(); //
         }
 
         private int ValidateAmountOfGroups()
@@ -59,12 +63,12 @@ namespace TournamentTree
                 Group group = new Group(i+1);
                 Groups.Add(group);
             }
-            Console.WriteLine(amount + " Gruppen wurden erstellt.");
+            // Groups created
         }
 
         private void PlacePlayersInGroups()
         {
-            Shuffle(Players);
+            ShufflePlayers(Players);
             int counter = 0;
             while (counter < Players.Count)
             {
@@ -84,28 +88,47 @@ namespace TournamentTree
         }
 
         private void ShowGroupsOnConsole()
-        {
+        {            
             Console.Clear();
             foreach (Group group in Groups)
             {
                 Console.WriteLine("Group " + group.GroupId);
                 foreach (Player player in group.Players)
                 {
-                    Console.WriteLine("  " + player.PlayerName);
+                    Console.WriteLine("  " + player.PlayerName + " P: " + player.Points + " D: " + player.GoalDifference);
                 }                
                 Console.WriteLine();
             }
         }
 
-        private void Shuffle(IList<Player> playerList)
+        private void PlayMatches()
         {
-            Random rand = new Random();
-            for (int i = 0; i < playerList.Count; i++)
+            Console.WriteLine("Press anything to start playing.");
+            Console.ReadLine();
+            Console.Clear();
+            CreateMatches();
+            ShuffleMatches(AllMatches); // shuffle Matches to have more randomness
+            foreach (Match m in AllMatches)
             {
-                var tempPlayer = playerList[i]; // keep a Player in Mind to swap it with another
-                var randomNumber = rand.Next(0, playerList.Count);
-                playerList[i] = playerList[randomNumber];
-                playerList[randomNumber] = tempPlayer;
+                m.PlayMatch();
+            }
+        }
+
+        private void CreateMatches()
+        {
+            foreach (Group group in Groups)
+            {                
+                for (int i = 0; i < group.Players.Count; i++)
+                {
+                    for (int j = 0; j < group.Players.Count; j++)
+                    {
+                        if (j > i) // so that everyone plays only ones against each other
+                        {
+                            Match match = new Match(group.Players[i], group.Players[j]);
+                            AllMatches.Add(match);
+                        }
+                    }
+                }
             }
         }
     }
