@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text;
 
 namespace TournamentTree
@@ -92,11 +93,12 @@ namespace TournamentTree
             Console.Clear();
             foreach (Group group in Groups)
             {
+                group.SortPlayers();
                 Console.WriteLine("Group " + group.GroupId);
-                foreach (Player player in group.Players)
+                for (int i = 0; i < group.Players.Count; i++)
                 {
-                    Console.WriteLine("  " + player.PlayerName + " P: " + player.Points + " D: " + player.GoalDifference);
-                }                
+                    Console.WriteLine("  " + group.Players[i].PlayerName + " P: " + group.Players[i].Points + " D: " + group.Players[i].GoalDifference);
+                }
                 Console.WriteLine();
             }
         }
