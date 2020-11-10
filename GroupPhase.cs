@@ -12,6 +12,8 @@ namespace TournamentTree
 
         public IList<Player> Players { get; set; }
 
+        public List<Player> RemainingPlayers { get; set; }
+
         public IList<Match> AllMatches { get; set; } = new List<Match>();
 
         enum AmountOfGroups : int
@@ -28,13 +30,37 @@ namespace TournamentTree
             Players = players;
         }
 
-        public void GenerateGroups()
-        {            
+        public void StartGroupGenerator()
+        {
             BuildingGroups(ValidateAmountOfGroups()); // Create Groups based on amount of Players
             PlacePlayersInGroups(); // place the players inside the groups
             ShowGroupsOnConsole(); // Show initalized Groups
             PlayMatches(); // play all matches
-            ShowGroupsOnConsole(); //
+            ShowGroupsOnConsole(); // show groups after they finished the groupphase
+            BestTwoPlayersRemain();
+        }
+
+        private void BestTwoPlayersRemain()
+        {
+            RemainingPlayers = new List<Player>();
+            foreach (Group group in Groups)
+            {
+                RemainingPlayers.Add(group.Players[0]);
+                if (Players.Count > 5)
+                {
+                    RemainingPlayers.Add(group.Players[1]);
+                }
+            }
+            ShowRemainingPlayers();
+        }
+
+        private void ShowRemainingPlayers()
+        {
+            Console.WriteLine("Remaining Players are:");
+            foreach (Player player in RemainingPlayers)
+            {
+                Console.WriteLine(player.PlayerName);
+            }
         }
 
         private int ValidateAmountOfGroups()
@@ -61,7 +87,7 @@ namespace TournamentTree
         {
             for (int i = 0; i < amount; i++)
             {
-                Group group = new Group(i+1);
+                Group group = new Group(i + 1);
                 Groups.Add(group);
             }
             // Groups created
@@ -89,7 +115,7 @@ namespace TournamentTree
         }
 
         private void ShowGroupsOnConsole()
-        {            
+        {
             Console.Clear();
             foreach (Group group in Groups)
             {
@@ -105,21 +131,21 @@ namespace TournamentTree
 
         private void PlayMatches()
         {
-            Console.WriteLine("Press anything to start playing.");
+            Console.WriteLine("Press Enter to start playing.");
             Console.ReadLine();
             Console.Clear();
             CreateMatches();
             ShuffleMatches(AllMatches); // shuffle Matches to have more randomness
-            foreach (Match m in AllMatches)
+            foreach (Match match in AllMatches)
             {
-                m.PlayMatch();
+                match.PlayMatch();
             }
         }
 
         private void CreateMatches()
         {
             foreach (Group group in Groups)
-            {                
+            {
                 for (int i = 0; i < group.Players.Count; i++)
                 {
                     for (int j = 0; j < group.Players.Count; j++)
