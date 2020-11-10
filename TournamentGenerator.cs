@@ -8,7 +8,7 @@ namespace TournamentTree
     class TournamentGenerator
     {
         public int AmountOfPlayers { get; set; }
-        public bool AmountOfPlayersInputCheck { get; set; } = false;
+
         public List<Player> AllPlayers { get; set; } = new List<Player>();
 
         public bool WithGroupPhase { get; set; } = false;
@@ -33,7 +33,16 @@ namespace TournamentTree
                 {
                     Console.WriteLine("Creating Groups");
                     GroupPhase groupPhase = new GroupPhase(AllPlayers);
-                    groupPhase.GenerateGroups();
+                    groupPhase.StartGroupGenerator();
+                    // start creating a tree after the groupphase is done
+                    Console.WriteLine("Creating a tree out of the Remaining Players.");
+                    Console.WriteLine("Press Enter to continue");
+                    Console.ReadLine();
+
+                    Console.Clear();
+                    Console.WriteLine("Creating Tournament Tree!");
+                    TournamentTree tree = new TournamentTree(groupPhase.RemainingPlayers);
+                    tree.StartTreeGenerator();
                 }
                 else
                 {
@@ -90,6 +99,7 @@ namespace TournamentTree
 
         private void ConfigureAmountOfPlayers()
         {
+            bool amountOfPlayersInputCheck = false;
             do
             {
                 Console.WriteLine("How many Players do you want to be in the Tournament?");
@@ -101,7 +111,7 @@ namespace TournamentTree
                     if (result >= 2 && result <= 64)
                     {
                         AmountOfPlayers = result;
-                        AmountOfPlayersInputCheck = true;
+                        amountOfPlayersInputCheck = true;
                     }
                     else
                     {
@@ -113,7 +123,7 @@ namespace TournamentTree
                 {
                     Console.WriteLine("Please enter a Number. Wrong input!");
                 }
-            } while (!AmountOfPlayersInputCheck);
+            } while (!amountOfPlayersInputCheck);
         }
 
         private void CreatePlayers()
