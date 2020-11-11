@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace TournamentTree
@@ -13,17 +14,31 @@ namespace TournamentTree
 
         public bool WithGroupPhase { get; set; } = false;
 
+        /// <summary>
+        /// Einstiegsmethode für die Generierung des Turniers.
+        /// </summary>
         public void StartGenerate()
         {
             Console.WriteLine("Welcome to the Tournament Generator!");
             ConfigureAmountOfPlayers();
             CreatePlayers();
 
-            Console.WriteLine("Do You want to play with Groupstage or without? Press Y for a GroupPhase" +
-                " or something else for an instant Tournament Tree!");
-            if (Console.ReadKey().Key == ConsoleKey.Y)
+            // Überprüfen, ob die Spieleranzahl eine Potenz von zwei ist und Setzen der Variable
+            // WithGroupPhase auf den gegenteiligen Wert. Ist die Spieleranzahl keine Potenz von zwei,
+            // dann muss zwingend mit Gruppe gespielt werden, da ein Baum sonst nicht generiert werden kann.
+            var amountOfPlayersIsPowerOfTwo = CheckIfAmountOfPlayersIsPowerOfTwo();
+            WithGroupPhase = !amountOfPlayersIsPowerOfTwo;
+
+            // Nur wenn die Spieleranzahl eine Potenz von zwei ist, sollte die Frage kommen, ob mit oder ohne Gruppen gespielt werden soll.
+            if (amountOfPlayersIsPowerOfTwo)
             {
-                WithGroupPhase = true;
+                Console.WriteLine("Do You want to play with Groupstage or without? Press Y for a GroupPhase" +
+                    " or something else for an instant Tournament Tree!");
+
+                if (Console.ReadKey().Key == ConsoleKey.Y)
+                {
+                    WithGroupPhase = true;
+                }
             }
 
             Console.Clear();
@@ -52,17 +67,11 @@ namespace TournamentTree
             }
             else
             {
-                if (CheckIfTreeIsPossible())
-                {
-                    Console.WriteLine("Creating Tournament Tree!");
-                    TournamentTree tree = new TournamentTree(AllPlayers);
-                    tree.StartTreeGenerator();
-                }
-                else
-                {
-                    Console.WriteLine("Can not generate a tree out of a Number which is not in power of '2'!");
-                    Console.WriteLine("Restart the Program!");
-                }
+                // Die Spieleranzahl ist immer eine Potenz von zwei, also kann auch immer
+                // ein Turnierbaum generiert werden.
+                Console.WriteLine("Creating Tournament Tree!");
+                TournamentTree tree = new TournamentTree(AllPlayers);
+                tree.StartTreeGenerator();
             }
 
             // let the Console left open
@@ -81,20 +90,13 @@ namespace TournamentTree
             }
         }
 
-        private bool CheckIfTreeIsPossible()
+        private bool CheckIfAmountOfPlayersIsPowerOfTwo()
         {
-            // check if Amount of Players is in power of '2'
-            int temp = AmountOfPlayers;
-            while(temp != 1)
-            {
-                if(temp % 2 != 0)
-                {
-                    return false;
-                }
+            var playersCountBinary = Convert.ToString(AmountOfPlayers, 2);
+            var count = playersCountBinary.Count(u => u == '1');
+            var isPowerOfTwo = count == 1;
 
-                temp /= 2;
-            }
-            return true;
+            return isPowerOfTwo;
         }
 
         private void ConfigureAmountOfPlayers()
