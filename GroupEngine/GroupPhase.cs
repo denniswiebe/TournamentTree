@@ -12,12 +12,13 @@ namespace TournamentTree
 
         public IList<Player> Players { get; set; }
 
-        public List<Player> RemainingPlayers { get; set; }
+        public List<Player> RemainingPlayers { get; set; } = new List<Player>();
 
         public IList<Match> AllMatches { get; set; } = new List<Match>();
 
         enum AmountOfGroups : int
         {
+            One = 1,
             Small = 2,
             Middle = 4,
             Big = 8,
@@ -30,30 +31,44 @@ namespace TournamentTree
             Players = players;
         }
 
+        /// <summary>
+        /// Startmethode für das Spielen eines Turniers in Gruppen.
+        /// </summary>
         public void StartGroupGenerator()
         {
-            BuildingGroups(ValidateAmountOfGroups()); // Create Groups based on amount of Players
-            PlacePlayersInGroups(); // place the players inside the groups
-            ShowGroupsOnConsole(); // Show initalized Groups
-            PlayMatches(); // play all matches
-            ShowGroupsOnConsole(); // show groups after they finished the groupphase
+            // Zuerst muss die Anzahl der Gruppen ermittelt werden.
+            var amountOfGroups = ValidateAmountOfGroups();
+            // Jetzt werden die Gruppen erzeugt.
+            BuildingGroups(amountOfGroups);
+            // Die Spieler werden nun in die Gruppen eingeteilt.
+            PlacePlayersInGroups();
+            // Die Gruppen in der Konsole anzeigen.
+            ShowGroupsOnConsole();
+            // Nun werden alle Spiele gespielt.
+            PlayMatches();
+            // Endergebnisse der Gruppenphase anzeigen.
+            ShowGroupsOnConsole();
+            // Ermitteln, wer die Gruppenphase überstanden hat.
             BestTwoPlayersRemain();
         }
 
+        /// <summary>
+        /// Diese Methode ermittelt die besten zwei Spieler der Gruppen.
+        /// Da die Gruppen immer mindestens drei Spieler haben, ist dies kein Problem.
+        /// </summary>
         private void BestTwoPlayersRemain()
         {
-            RemainingPlayers = new List<Player>();
             foreach (Group group in Groups)
             {
                 RemainingPlayers.Add(group.Players[0]);
-                if (Players.Count > 5)
-                {
-                    RemainingPlayers.Add(group.Players[1]);
-                }
+                RemainingPlayers.Add(group.Players[1]);
             }
             ShowRemainingPlayers();
         }
 
+        /// <summary>
+        /// Diese Methode zeigt die übrigen Spieler an, die nun in einem Turnierbaum gegeneinader spielen.
+        /// </summary>
         private void ShowRemainingPlayers()
         {
             Console.WriteLine("Remaining Players are:");
@@ -63,9 +78,17 @@ namespace TournamentTree
             }
         }
 
+        /// <summary>
+        /// Diese Methode wird benötigt, um die Anzahl der anzulegenden Gruppen festzulegen.
+        /// </summary>
+        /// <returns>Anzahl der anzulegenden Gruppen.</returns>
         private int ValidateAmountOfGroups()
         {
-            if (Players.Count < 12)
+            if (Players.Count < 6)
+            {
+                return (int)AmountOfGroups.One;
+            }
+            else if (Players.Count < 12)
             {
                 return (int)AmountOfGroups.Small;
             }
@@ -83,6 +106,10 @@ namespace TournamentTree
             }
         }
 
+        /// <summary>
+        /// Diese Methode legt die Gruppen an.
+        /// </summary>
+        /// <param name="amount">Anzahl der anzulegenden Gruppen.</param>
         private void BuildingGroups(int amount)
         {
             for (int i = 0; i < amount; i++)
@@ -93,6 +120,9 @@ namespace TournamentTree
             // Groups created
         }
 
+        /// <summary>
+        /// Diese Methode befüllt die Gruppen mit dem Spielern des Turniers.
+        /// </summary>
         private void PlacePlayersInGroups()
         {
             ShufflePlayers(Players);
@@ -111,9 +141,11 @@ namespace TournamentTree
                     }
                 }
             }
-            // Players randomly placed inside the Groups.
         }
 
+        /// <summary>
+        /// Diese Methode zeigt alle Gruppen in der Konsole an.
+        /// </summary>
         private void ShowGroupsOnConsole()
         {
             Console.Clear();
@@ -129,6 +161,9 @@ namespace TournamentTree
             }
         }
 
+        /// <summary>
+        /// Diese Methode kümmert sich um das Spielen der Gruppenspiele.
+        /// </summary>
         private void PlayMatches()
         {
             Console.WriteLine("Press Enter to start playing.");
@@ -142,6 +177,9 @@ namespace TournamentTree
             }
         }
 
+        /// <summary>
+        /// Diese Methode erzeugt die Spiele in einer Gruppe, sodass jeder Spieler gegen die jeweils anderen aus der Gruppe spielt.
+        /// </summary>
         private void CreateMatches()
         {
             foreach (Group group in Groups)

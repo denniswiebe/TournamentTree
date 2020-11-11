@@ -8,11 +8,40 @@ namespace TournamentTree
 
     class TournamentGenerator
     {
-        public int AmountOfPlayers { get; set; }
+        #region Private Members
 
+        /// <summary>
+        /// Minimale Anzahl an Spielern, die angelegt werden müssen.
+        /// </summary>
+        private const int MINIMUM_PLAYERS_COUNT = 2;
+
+        /// <summary>
+        /// Minimale Anzahl an Spielern in einer Gruppe.
+        /// </summary>
+        private const int MINIMUM_GROUP_PLAYERS_COUNT = 3;
+
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        /// Anzahl der am Turnier teilnehmenden Spieler.
+        /// </summary>
+        public int AmountOfPlayers => AllPlayers.Count;
+
+        /// <summary>
+        /// Liste aller Spieler, die am Turnier teilnehmen.
+        /// </summary>
         public List<Player> AllPlayers { get; set; } = new List<Player>();
 
+        /// <summary>
+        /// Wird mit Gruppen gespielt?
+        /// </summary>
         public bool WithGroupPhase { get; set; } = false;
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Einstiegsmethode für die Generierung des Turniers.
@@ -20,8 +49,7 @@ namespace TournamentTree
         public void StartGenerate()
         {
             Console.WriteLine("Welcome to the Tournament Generator!");
-            ConfigureAmountOfPlayers();
-            CreatePlayers();
+            CreateAllPlayers();
 
             // Überprüfen, ob die Spieleranzahl eine Potenz von zwei ist und Setzen der Variable
             // WithGroupPhase auf den gegenteiligen Wert. Ist die Spieleranzahl keine Potenz von zwei,
@@ -30,7 +58,8 @@ namespace TournamentTree
             WithGroupPhase = !amountOfPlayersIsPowerOfTwo;
 
             // Nur wenn die Spieleranzahl eine Potenz von zwei ist, sollte die Frage kommen, ob mit oder ohne Gruppen gespielt werden soll.
-            if (amountOfPlayersIsPowerOfTwo)
+            // Wurden bloß zwei Spieler angelegt, wird keine Gruppe angelegt,da die Spieleranzahl zu gering für Gruppen ist.
+            if (amountOfPlayersIsPowerOfTwo && AmountOfPlayers > MINIMUM_PLAYERS_COUNT)
             {
                 Console.WriteLine("Do You want to play with Groupstage or without? Press Y for a GroupPhase" +
                     " or something else for an instant Tournament Tree!");
@@ -78,9 +107,13 @@ namespace TournamentTree
             Console.ReadLine();
         }
 
+        /// <summary>
+        /// Diese Methode überprüft anhand der Spieleranzahl, ob Gruppen angelegt werden können.
+        /// </summary>
+        /// <returns>true, wenn Spieleranzahl > MINIMUM_GROUP_PLAYERS_COUNT, ansonsten false.</returns>
         private bool CheckIfGroupsArePossible()
         {
-            if(AmountOfPlayers >= 4)
+            if(AmountOfPlayers >= MINIMUM_GROUP_PLAYERS_COUNT)
             {
                 return true;
             }
@@ -90,6 +123,11 @@ namespace TournamentTree
             }
         }
 
+        /// <summary>
+        /// Diese Methode wird benötigt, um zu überprüfen, ob ein Turnierbaum erzeugt werden kann. Die Spieleranzahl wird in
+        /// einen Binärstring gewandelt und in diesem werden alle 1 gezählt.
+        /// </summary>
+        /// <returns>true, wenn Spieleranzahl eine Potenz von 2 ist, ansonsten false.</returns>
         private bool CheckIfAmountOfPlayersIsPowerOfTwo()
         {
             var playersCountBinary = Convert.ToString(AmountOfPlayers, 2);
@@ -99,57 +137,31 @@ namespace TournamentTree
             return isPowerOfTwo;
         }
 
-        private void ConfigureAmountOfPlayers()
+        /// <summary>
+        /// Diese Methode wird benötigt, um die Spieler eines Turniers zu erstellen. Anhand der eingegebenen Namen der Spieler
+        /// werden Player-Objekte erzeugt und in die Liste AllPlayers geschrieben. Es müssen mindestens zwei Spieler angelegt werden.
+        /// </summary>
+        private void CreateAllPlayers()
         {
-            bool amountOfPlayersInputCheck = false;
-            do
+            Console.WriteLine($"Enter player names or STOP if all players has been entered. You have to enter at least {MINIMUM_PLAYERS_COUNT} players!");
+            var name = Console.ReadLine();
+            while (!String.Equals(name, "STOP", StringComparison.OrdinalIgnoreCase))
             {
-                Console.WriteLine("How many Players do you want to be in the Tournament?");
-                Console.WriteLine("Keep in mind that a Tournament Tree has to be 2, 4, 8, 16, 32 or 64 Players");
-                Console.WriteLine("For a GroupPhase you need at least '4' Players");
-                string amountOfPlayersInput = Console.ReadLine();
-                if (int.TryParse(amountOfPlayersInput, out int result))
+                var player = new Player(name);
+                AllPlayers.Add(player);
+                name = Console.ReadLine();
+                
+                while (AmountOfPlayers < MINIMUM_PLAYERS_COUNT && String.Equals(name, "STOP", StringComparison.OrdinalIgnoreCase))
                 {
-                    if (result >= 2 && result <= 64)
-                    {
-                        AmountOfPlayers = result;
-                        amountOfPlayersInputCheck = true;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Amount of Players must be atleast '2' and " +
-                            "maximum '64'.");
-                    }
+                    Console.WriteLine($"You have to enter at least {MINIMUM_PLAYERS_COUNT} players!");
+                    name = Console.ReadLine();
                 }
-                else
-                {
-                    Console.WriteLine("Please enter a Number. Wrong input!");
-                }
-            } while (!amountOfPlayersInputCheck);
-        }
-
-        private void CreatePlayers()
-        {
-            Console.WriteLine("Enter now the Names for the Players!");
-            for (int i = 1; i <= AmountOfPlayers; i++)
-            {
-                string playerNameInput;
-                do
-                {
-                    Console.WriteLine("Spielername " + i + ": ");
-                    playerNameInput = Console.ReadLine();
-                } while (CheckIfStringIsEmpty(playerNameInput));
-                Player newPlayer = new Player(playerNameInput);
-                AllPlayers.Add(newPlayer);
             }
+
             Console.Clear();
             Console.WriteLine("All Players created!");
         }
 
-        private bool CheckIfStringIsEmpty(string str)
-        {
-            return str.Equals("");
-        }
-
+        #endregion
     }
 }

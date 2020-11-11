@@ -4,9 +4,11 @@ using System.Text;
 
 namespace TournamentTree
 {
+    /// <summary>
+    /// Holds necessary Methods for the components
+    /// </summary>
     class Component
     {
-        // Holds necessary Methods for the components
         public void ShuffleMatches(IList<Match> matches)
         {
             Random rand = new Random();
