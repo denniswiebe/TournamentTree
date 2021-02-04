@@ -166,7 +166,15 @@ namespace TournamentTree
         /// </summary>
         private void PlayMatches()
         {
-            Console.WriteLine("Press Enter to start playing.");
+            bool homeAndAwayMatches = false;
+            Console.WriteLine("Do you want to play home and away matches? Press 'Y' for home and away Matches");
+
+            if (Console.ReadKey().Key == ConsoleKey.Y)
+            {
+                homeAndAwayMatches = true;
+            }
+
+            Console.WriteLine("\nPress Enter to start playing.");
             Console.ReadLine();
             Console.Clear();
             CreateMatches();
@@ -174,6 +182,17 @@ namespace TournamentTree
             foreach (Match match in AllMatches)
             {
                 match.PlayMatch();
+            }
+
+            //wenn die Rückrunde gespielt wird, sollen die Matches nochmal gespielt werden
+            if (homeAndAwayMatches)
+            {
+
+                foreach (Match match in AllMatches)
+                {
+                    match.ChangeHomeAndAway();
+                    match.PlayMatch();
+                }   
             }
         }
 

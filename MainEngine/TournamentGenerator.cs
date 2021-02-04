@@ -61,7 +61,7 @@ namespace TournamentTree
             // Wurden bloß zwei Spieler angelegt, wird keine Gruppe angelegt,da die Spieleranzahl zu gering für Gruppen ist.
             if (amountOfPlayersIsPowerOfTwo && AmountOfPlayers > MINIMUM_PLAYERS_COUNT)
             {
-                Console.WriteLine("Do You want to play with Groupstage or without? Press Y for a GroupPhase" +
+                Console.WriteLine("Do You want to play with Groupstage or without? Press 'Y' for a GroupPhase" +
                     " or something else for an instant Tournament Tree!");
 
                 if (Console.ReadKey().Key == ConsoleKey.Y)

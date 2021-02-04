@@ -79,5 +79,12 @@ namespace TournamentTree
 
             return true;
         }
+
+        public void ChangeHomeAndAway()
+        {
+            Player temp = PlayerOne;
+            PlayerOne = PlayerTwo;
+            PlayerTwo = temp;
+        }
     }
 }
