@@ -11,10 +11,12 @@ namespace TournamentTree
 
         public bool FirstTree { get; set; } = true;
 
+        public TournamentLog _log = new TournamentLog(); 
+
         public TournamentTree(List<Player> players)
         {
             Players = players;
-            CreateTree();
+            Console.WriteLine(CreateTree());
             FirstTree = false;
         }
 
@@ -54,15 +56,23 @@ namespace TournamentTree
                 }
 
                 EliminateLosingPlayers(losers);
-                
+
                 if (Players.Count != 1)
                 {
                     Console.Clear();
-                    CreateTree();
+                    Console.WriteLine(CreateTree());
                 }
             }
             Console.Clear();
             Console.WriteLine("Winner of the Tournament: " + Players[0].PlayerName);
+            _log.AddEntry("Winner: " + Players[0].PlayerName);
+
+            //LogFile vom Turnier erstellen ?
+            Console.WriteLine("Do you want a Log of the Tournament? Y/N");
+            if (Console.ReadKey().Key == ConsoleKey.Y)
+            {
+                _log.CreateLog();
+            }
         }
 
         private void EliminateLosingPlayers(List<Player> losers)
@@ -73,27 +83,32 @@ namespace TournamentTree
             }
         }
 
-        private void CreateTree()
+        private string CreateTree()
         {
-            Console.WriteLine("------------------------------------------------------");
-            Console.WriteLine();
+            string showTree = "------------------------------------------------------\n\n";
+            
             if (FirstTree)
             {
                 ShufflePlayers(Players);
             }
+
+
             for (int i = 0; i < Players.Count; i++)
             {
-                Console.WriteLine(Players[i].PlayerName);
+                showTree += Players[i].PlayerName + "\n";
                 if (i % 2 == 0)
                 {
-                    Console.WriteLine("VERSUS");
+                    showTree += "VERSUS\n";
                 }
                 else
                 {
-                    Console.WriteLine(""); // for a better Visualization who plays against each other
+                    showTree += "\n";
                 }
             }
-            Console.WriteLine("------------------------------------------------------");
+            showTree += "------------------------------------------------------\n";
+
+            _log.AddEntry(showTree);
+            return showTree;
         }
     }
 }

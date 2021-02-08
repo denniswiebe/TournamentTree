@@ -102,9 +102,6 @@ namespace TournamentTree
                 TournamentTree tree = new TournamentTree(AllPlayers);
                 tree.StartTreeGenerator();
             }
-
-            // let the Console left open
-            Console.ReadLine();
         }
 
         /// <summary>
