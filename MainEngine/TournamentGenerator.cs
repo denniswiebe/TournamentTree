@@ -99,8 +99,18 @@ namespace TournamentTree
                 // Die Spieleranzahl ist immer eine Potenz von zwei, also kann auch immer
                 // ein Turnierbaum generiert werden.
                 Console.WriteLine("Creating Tournament Tree!");
-                TournamentTree tree = new TournamentTree(AllPlayers);
-                tree.StartTreeGenerator();
+                Console.WriteLine("\nDo you want a Double KO System? Y/N");
+                if (Console.ReadKey().Key == ConsoleKey.Y)
+                {
+                    Console.WriteLine();
+                    DoubleKO doubleKO = new DoubleKO(AllPlayers);
+                    doubleKO.StartWinnerTreeGenerator();
+                }
+                else
+                {
+                    TournamentTree tree = new TournamentTree(AllPlayers);
+                    tree.StartTreeGenerator();
+                }
             }
         }
 
@@ -110,7 +120,7 @@ namespace TournamentTree
         /// <returns>true, wenn Spieleranzahl > MINIMUM_GROUP_PLAYERS_COUNT, ansonsten false.</returns>
         private bool CheckIfGroupsArePossible()
         {
-            if(AmountOfPlayers >= MINIMUM_GROUP_PLAYERS_COUNT)
+            if (AmountOfPlayers >= MINIMUM_GROUP_PLAYERS_COUNT)
             {
                 return true;
             }
@@ -147,7 +157,7 @@ namespace TournamentTree
                 var player = new Player(name);
                 AllPlayers.Add(player);
                 name = Console.ReadLine();
-                
+
                 while (AmountOfPlayers < MINIMUM_PLAYERS_COUNT && String.Equals(name, "STOP", StringComparison.OrdinalIgnoreCase))
                 {
                     Console.WriteLine($"You have to enter at least {MINIMUM_PLAYERS_COUNT} players!");

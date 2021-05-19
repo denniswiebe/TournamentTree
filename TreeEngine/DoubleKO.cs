@@ -58,26 +58,31 @@ namespace TournamentTree
                     }
                 }
 
-                MoveLosingPlayers(losers);
-
-                if (Winners.Count != 1)
+                if (Winners.Count == 2)
                 {
                     Console.Clear();
+                    Console.WriteLine(CreateLosingTree());
+                    PlayLoserBracket();
+                }
+
+                MoveLosingPlayers(losers);
+
+
+                Console.Clear();
+                if(Winners.Count > 1)
+                {
                     Console.WriteLine(CreateWinningTree());
                 }
             }
+
             Console.Clear();
-
-
-            //Console.WriteLine("Winner of the Tournament: " + Winners[0].PlayerName);
-            //_log.AddEntry("Winner: " + Players[0].PlayerName);
-
-            ////LogFile vom Turnier erstellen ?
-            //Console.WriteLine("Do you want a Log of the Tournament? Y/N");
-            //if (Console.ReadKey().Key == ConsoleKey.Y)
-            //{
-            //    _log.CreateLog();
-            //}
+            PlayFinale(Winners[0], Losers[0]);
+            //LogFile vom Turnier erstellen ?
+            Console.WriteLine("\nDo you want a Log of the Tournament? Y/N");
+            if (Console.ReadKey().Key == ConsoleKey.Y)
+            {
+                _log.CreateLog();
+            }
         }
 
         private void MoveLosingPlayers(List<Player> losers)
@@ -93,22 +98,25 @@ namespace TournamentTree
             }
             else
             {
+
+
                 int counterIndex = 0;
                 foreach (Player loser in losers)
                 {
-                    Losers.Insert(counterIndex, loser);
                     Winners.Remove(loser);
+                    Losers.Insert(counterIndex, loser);
                     counterIndex += 2;
                 }
             }
             Console.Clear();
             Console.WriteLine(CreateLosingTree());
+
             PlayLoserBracket();
         }
 
         private void PlayLoserBracket()
         {
-            List<Player> losers = new List<Player>();
+            List<Player> doubleLosers = new List<Player>();
             for (int i = 0; i < Losers.Count - 1; i += 2)
             {
                 Console.WriteLine("Who is the Winner?");
@@ -120,13 +128,13 @@ namespace TournamentTree
                     if (whoWonInput == Losers[i].PlayerName)
                     {
                         Console.WriteLine("You Choose: " + Losers[i].PlayerName);
-                        losers.Add(Losers[i + 1]);
+                        doubleLosers.Add(Losers[i + 1]);
                         correctPlayerInput = true;
                     }
-                    else if (whoWonInput == Winners[i + 1].PlayerName)
+                    else if (whoWonInput == Losers[i + 1].PlayerName)
                     {
                         Console.WriteLine("You Choose: " + Losers[i + 1].PlayerName);
-                        losers.Add(Losers[i]);
+                        doubleLosers.Add(Losers[i]);
                         correctPlayerInput = true;
                     }
                     else
@@ -135,9 +143,16 @@ namespace TournamentTree
                     }
                     Console.WriteLine();
                 }
-            }
+            }            
 
-            RemoveDoubleLosingPlayers(losers);
+            RemoveDoubleLosingPlayers(doubleLosers);
+            //For 16 Players special
+            if (Winners.Count == 4 && Losers.Count == 4)
+            {
+                Console.Clear();
+                Console.WriteLine(CreateLosingTree());
+                PlayLoserBracket();
+            }
         }
 
         private void RemoveDoubleLosingPlayers(List<Player> losers)
@@ -146,6 +161,75 @@ namespace TournamentTree
             {
                 Losers.Remove(loser);
             }
+        }
+
+        private void PlayFinale(Player winner, Player loser)
+        {
+            Console.WriteLine(ShowFinale());
+            Console.WriteLine("Who is the Winner?");
+            Console.WriteLine(winner.PlayerName + " Or " + loser.PlayerName);
+            bool correctPlayerInput = false;
+            while (!correctPlayerInput)
+            {
+                string whoWonInput = Console.ReadLine();
+                if (whoWonInput == winner.PlayerName)
+                {
+                    Console.WriteLine("You Choose: " + winner.PlayerName);
+                    Console.WriteLine("Winner of the Tournament: " + winner.PlayerName);
+                    _log.AddEntry("Winner: " + winner.PlayerName);
+                    break;
+                }
+                else if (whoWonInput == loser.PlayerName)
+                {
+                    Console.WriteLine("You Choose: " + loser.PlayerName);
+                    Console.WriteLine("Second Chance!");
+                    Console.WriteLine("Who is the Winner?");
+                    Console.WriteLine(winner.PlayerName + " Or " + loser.PlayerName);
+                    while (!correctPlayerInput)
+                    {
+                        string WhoWonTournament = Console.ReadLine();
+                        if (WhoWonTournament == winner.PlayerName)
+                        {
+                            Console.WriteLine("You Choose: " + winner.PlayerName);
+                            Console.WriteLine("Winner of the Tournament: " + winner.PlayerName);
+                            _log.AddEntry("Winner: " + winner.PlayerName);
+                            correctPlayerInput = true;
+                        }
+                        else if (WhoWonTournament == loser.PlayerName)
+                        {
+                            Console.WriteLine("You Choose: " + loser.PlayerName);
+                            Console.WriteLine("Winner of the Tournament: " + loser.PlayerName);
+                            _log.AddEntry("Winner: " + loser.PlayerName);
+                            correctPlayerInput = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Wrong Input! Try Again.");
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Wrong Input! Try Again.");
+                }
+                Console.WriteLine();
+            }
+
+        }
+
+        private string ShowFinale()
+        {
+            string showFinals = "Finale\n";
+            showFinals += "------------------------------------------------------\n\n";
+
+            showFinals += Winners[0].PlayerName + "\n";
+            showFinals += "VERSUS\n";
+            showFinals += Losers[0].PlayerName + "\n";
+
+            showFinals += "------------------------------------------------------\n\n";
+
+            _log.AddEntry(showFinals);
+            return showFinals;
         }
 
         private string CreateWinningTree()
@@ -195,6 +279,8 @@ namespace TournamentTree
                 }
             }
             showTree += "------------------------------------------------------\n";
+
+            _log.AddEntry(showTree);
             return showTree;
         }
     }
