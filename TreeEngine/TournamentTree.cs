@@ -23,9 +23,11 @@ namespace TournamentTree
         public void StartTreeGenerator()
         {
             Console.WriteLine("Elimination starts!");
+            int round = 1;
             while (Players.Count != 1)
             {
                 Console.WriteLine("Next Round!");
+                var tournamentBracketLogRound = new TournamentBracketLogRound(round);
                 List<Player> losers = new List<Player>();
                 for (int i = 0; i < Players.Count - 1; i += 2)
                 {
@@ -51,11 +53,15 @@ namespace TournamentTree
                         {
                             Console.WriteLine("Wrong Input! Try Again.");
                         }
+                        if (correctPlayerInput)
+                            tournamentBracketLogRound.AddMatch(Players[i].PlayerName, Players[i + 1].PlayerName, whoWonInput == Players[i].PlayerName);
                         Console.WriteLine();
                     }
                 }
 
                 EliminateLosingPlayers(losers);
+                round++;
+                TournamentBracketLog.Rounds.Add(tournamentBracketLogRound);
 
                 if (Players.Count != 1)
                 {
@@ -72,6 +78,13 @@ namespace TournamentTree
             if (Console.ReadKey().Key == ConsoleKey.Y)
             {
                 _log.CreateLog();
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Do you want to create an Excel file of the knockout-stage? Y/N");
+            if (Console.ReadKey().Key == ConsoleKey.Y)
+            {
+                TournamentBracketLog.GenerateBracketExcel();
             }
         }
 
