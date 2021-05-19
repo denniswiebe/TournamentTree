@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TournamentTree
 {
-    class Player
+    public class Player
     {
         public string PlayerName { get; set; }
         public int Wins { get; set; }

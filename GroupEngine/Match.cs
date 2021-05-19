@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TournamentTree
 {
-    class Match
+    public class Match
     {
         public Player PlayerOne { get; set; }
         public Player PlayerTwo { get; set; }
@@ -54,7 +54,7 @@ namespace TournamentTree
             PlayerTwo.GoalDifference += secondNumber;
         }
 
-        private bool CheckInputOfMatch(string input)
+        public bool CheckInputOfMatch(string input)
         {
             string trimmedInput = input.Trim();
             string[] splitInput = trimmedInput.Split(" ");
