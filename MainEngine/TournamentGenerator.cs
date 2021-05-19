@@ -152,10 +152,20 @@ namespace TournamentTree
         private void CreateAllPlayers()
         {
             Console.WriteLine($"Enter player names or STOP if all players has been entered. You have to enter at least {MINIMUM_PLAYERS_COUNT} players!");
+            Console.WriteLine("Enter help or game for Tournament Suggestion.");
             var name = Console.ReadLine();
             while (!String.Equals(name, "STOP", StringComparison.OrdinalIgnoreCase))
             {
-                if (!String.IsNullOrWhiteSpace(name))
+                ChooseHelper helper = new ChooseHelper(AmountOfPlayers);
+                if (String.Equals(name, "help", StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.WriteLine(helper.Help());
+                }
+                else if (String.Equals(name, "game", StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.WriteLine(helper.Suggestion());
+                }
+                else if (!String.IsNullOrWhiteSpace(name))
                 {
                     var player = new Player(name);
                     AllPlayers.Add(player);
@@ -167,6 +177,8 @@ namespace TournamentTree
                     Console.WriteLine($"You have to enter at least {MINIMUM_PLAYERS_COUNT} players!");
                     name = Console.ReadLine();
                 }
+
+
             }
 
             Console.Clear();
