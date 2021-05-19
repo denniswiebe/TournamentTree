@@ -102,12 +102,13 @@ namespace TournamentTree
                 Console.WriteLine("\nDo you want a Double KO System? Y/N");
                 if (Console.ReadKey().Key == ConsoleKey.Y)
                 {
-                    Console.WriteLine();
+                    Console.Clear();
                     DoubleKO doubleKO = new DoubleKO(AllPlayers);
                     doubleKO.StartWinnerTreeGenerator();
                 }
                 else
                 {
+                    Console.Clear();
                     TournamentTree tree = new TournamentTree(AllPlayers);
                     tree.StartTreeGenerator();
                 }
@@ -154,8 +155,11 @@ namespace TournamentTree
             var name = Console.ReadLine();
             while (!String.Equals(name, "STOP", StringComparison.OrdinalIgnoreCase))
             {
-                var player = new Player(name);
-                AllPlayers.Add(player);
+                if (!String.IsNullOrWhiteSpace(name))
+                {
+                    var player = new Player(name);
+                    AllPlayers.Add(player);
+                }
                 name = Console.ReadLine();
 
                 while (AmountOfPlayers < MINIMUM_PLAYERS_COUNT && String.Equals(name, "STOP", StringComparison.OrdinalIgnoreCase))
