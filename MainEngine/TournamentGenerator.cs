@@ -154,6 +154,7 @@ namespace TournamentTree
             Console.WriteLine($"Enter player names or STOP if all players has been entered. You have to enter at least {MINIMUM_PLAYERS_COUNT} players!");
             Console.WriteLine("Enter help or game for Tournament Suggestion.");
             var name = Console.ReadLine();
+            int idCounter = 1;
             while (!String.Equals(name, "STOP", StringComparison.OrdinalIgnoreCase))
             {
                 ChooseHelper helper = new ChooseHelper(AmountOfPlayers);
@@ -167,8 +168,9 @@ namespace TournamentTree
                 }
                 else if (!String.IsNullOrWhiteSpace(name))
                 {
-                    var player = new Player(name);
+                    var player = new Player(name, idCounter);
                     AllPlayers.Add(player);
+                    idCounter++;
                 }
                 name = Console.ReadLine();
 
