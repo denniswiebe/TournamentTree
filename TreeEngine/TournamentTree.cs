@@ -31,21 +31,21 @@ namespace TournamentTree
                 List<Player> losers = new List<Player>();
                 for (int i = 0; i < Players.Count - 1; i += 2)
                 {
-                    Console.WriteLine("Who is the Winner?");
-                    Console.WriteLine(Players[i].PlayerName + " Or " + Players[i + 1].PlayerName);
+                    Console.WriteLine("Who is the Winner? Name or ID");
+                    Console.WriteLine(Players[i].ToString() + " Or " + Players[i + 1].ToString());
                     bool correctPlayerInput = false;
                     while (!correctPlayerInput)
                     {
                         string whoWonInput = Console.ReadLine();
-                        if (whoWonInput == Players[i].PlayerName)
+                        if (whoWonInput == Players[i].PlayerName || whoWonInput == Players[i].PlayerID.ToString())
                         {
-                            Console.WriteLine("You Choose: " + Players[i].PlayerName);
+                            Console.WriteLine("You Choose: " + Players[i].ToString());
                             losers.Add(Players[i + 1]);
                             correctPlayerInput = true;
                         }
-                        else if (whoWonInput == Players[i + 1].PlayerName)
+                        else if (whoWonInput == Players[i + 1].PlayerName || whoWonInput == Players[i + 1].PlayerID.ToString())
                         {
-                            Console.WriteLine("You Choose: " + Players[i + 1].PlayerName);
+                            Console.WriteLine("You Choose: " + Players[i + 1].ToString());
                             losers.Add(Players[i]);
                             correctPlayerInput = true;
                         }
@@ -54,7 +54,7 @@ namespace TournamentTree
                             Console.WriteLine("Wrong Input! Try Again.");
                         }
                         if (correctPlayerInput)
-                            tournamentBracketLogRound.AddMatch(Players[i].PlayerName, Players[i + 1].PlayerName, whoWonInput == Players[i].PlayerName);
+                            tournamentBracketLogRound.AddMatch(Players[i].ToString(), Players[i + 1].ToString(), whoWonInput == Players[i].ToString());
                         Console.WriteLine();
                     }
                 }
@@ -70,8 +70,8 @@ namespace TournamentTree
                 }
             }
             Console.Clear();
-            Console.WriteLine("Winner of the Tournament: " + Players[0].PlayerName);
-            _log.AddEntry("Winner: " + Players[0].PlayerName);
+            Console.WriteLine("Winner of the Tournament: " + Players[0].ToString());
+            _log.AddEntry("Winner: " + Players[0].ToString());
 
             //LogFile vom Turnier erstellen ?
             Console.WriteLine("Do you want a Log of the Tournament? Y/N");
@@ -108,7 +108,7 @@ namespace TournamentTree
 
             for (int i = 0; i < Players.Count; i++)
             {
-                showTree += Players[i].PlayerName + "\n";
+                showTree += Players[i].ToString() + "\n";
                 if (i % 2 == 0)
                 {
                     showTree += "VERSUS\n";
