@@ -21,10 +21,19 @@ namespace TournamentTree
 
         public int Placement { get; set; }
 
+        public bool IsWildCard { get; set; } = false;
+
         public Player(string name, int id)
         {
             PlayerName = name;
             PlayerID = id;
+        }
+
+        public Player(bool wildCard)
+        {
+            IsWildCard = wildCard;
+            PlayerName = "Freewin";
+            PlayerID = 0;
         }
 
         public override string ToString()

@@ -11,7 +11,7 @@ namespace TournamentTree
 
         public bool FirstTree { get; set; } = true;
 
-        public TournamentLog _log = new TournamentLog(); 
+        public TournamentLog _log = new TournamentLog();
 
         public TournamentTree(List<Player> players)
         {
@@ -31,31 +31,47 @@ namespace TournamentTree
                 List<Player> losers = new List<Player>();
                 for (int i = 0; i < Players.Count - 1; i += 2)
                 {
-                    Console.WriteLine("Who is the Winner? Name or ID");
-                    Console.WriteLine(Players[i].ToString() + " Or " + Players[i + 1].ToString());
-                    bool correctPlayerInput = false;
-                    while (!correctPlayerInput)
+                    if (Players[i].PlayerID == 0 || Players[i + 1].PlayerID == 0) // prüfen ob im Match eine Wildcard vorhanden ist
                     {
-                        string whoWonInput = Console.ReadLine();
-                        if (whoWonInput == Players[i].PlayerName || whoWonInput == Players[i].PlayerID.ToString())
+                        if (Players[i].PlayerID == 0)
                         {
-                            Console.WriteLine("You Choose: " + Players[i].ToString());
-                            losers.Add(Players[i + 1]);
-                            correctPlayerInput = true;
-                        }
-                        else if (whoWonInput == Players[i + 1].PlayerName || whoWonInput == Players[i + 1].PlayerID.ToString())
-                        {
-                            Console.WriteLine("You Choose: " + Players[i + 1].ToString());
                             losers.Add(Players[i]);
-                            correctPlayerInput = true;
+                            tournamentBracketLogRound.AddMatch(Players[i].ToString(), Players[i + 1].ToString(), false);
                         }
                         else
                         {
-                            Console.WriteLine("Wrong Input! Try Again.");
+                            losers.Add(Players[i + 1]);
+                            tournamentBracketLogRound.AddMatch(Players[i].ToString(), Players[i + 1].ToString(), true);
                         }
-                        if (correctPlayerInput)
-                            tournamentBracketLogRound.AddMatch(Players[i].ToString(), Players[i + 1].ToString(), whoWonInput == Players[i].ToString());
-                        Console.WriteLine();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Who is the Winner? Name or ID");
+                        Console.WriteLine(Players[i].ToString() + " Or " + Players[i + 1].ToString());
+                        bool correctPlayerInput = false;
+                        while (!correctPlayerInput)
+                        {
+                            string whoWonInput = Console.ReadLine();
+                            if (whoWonInput == Players[i].PlayerName || whoWonInput == Players[i].PlayerID.ToString())
+                            {
+                                Console.WriteLine("You Choose: " + Players[i].ToString());
+                                losers.Add(Players[i + 1]);
+                                correctPlayerInput = true;
+                            }
+                            else if (whoWonInput == Players[i + 1].PlayerName || whoWonInput == Players[i + 1].PlayerID.ToString())
+                            {
+                                Console.WriteLine("You Choose: " + Players[i + 1].ToString());
+                                losers.Add(Players[i]);
+                                correctPlayerInput = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Wrong Input! Try Again.");
+                            }
+                            if (correctPlayerInput)
+                                tournamentBracketLogRound.AddMatch(Players[i].ToString(), Players[i + 1].ToString(), whoWonInput == Players[i].ToString());
+                            Console.WriteLine();
+                        }
                     }
                 }
 
@@ -99,10 +115,13 @@ namespace TournamentTree
         private string CreateTree()
         {
             string showTree = "------------------------------------------------------\n\n";
-            
+
             if (FirstTree)
             {
-                ShufflePlayers(Players);
+                while (!NoFreeWinsAgainstEachOther())
+                {
+                    ShufflePlayers(Players);
+                }
             }
 
 
@@ -122,6 +141,19 @@ namespace TournamentTree
 
             _log.AddEntry(showTree);
             return showTree;
+        }
+
+        public bool NoFreeWinsAgainstEachOther()
+        {
+            bool check = true;
+            for (int i = 0; i < Players.Count() - 1; i++)
+            {
+                if (Players[i].PlayerID == Players[i + 1].PlayerID)
+                {
+                    check = false;
+                }
+            }
+            return check;
         }
     }
 }

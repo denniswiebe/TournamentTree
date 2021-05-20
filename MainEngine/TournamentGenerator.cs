@@ -39,6 +39,8 @@ namespace TournamentTree
         /// </summary>
         public bool WithGroupPhase { get; set; } = false;
 
+        public bool WithWildCards { get; set; } = false;
+
         #endregion
 
         #region Methods
@@ -59,7 +61,7 @@ namespace TournamentTree
 
             // Nur wenn die Spieleranzahl eine Potenz von zwei ist, sollte die Frage kommen, ob mit oder ohne Gruppen gespielt werden soll.
             // Wurden bloß zwei Spieler angelegt, wird keine Gruppe angelegt,da die Spieleranzahl zu gering für Gruppen ist.
-            if (amountOfPlayersIsPowerOfTwo && AmountOfPlayers > MINIMUM_PLAYERS_COUNT)
+            if (amountOfPlayersIsPowerOfTwo && AmountOfPlayers > MINIMUM_PLAYERS_COUNT && !WithWildCards)
             {
                 Console.WriteLine("Do You want to play with Groupstage or without? Press 'Y' for a GroupPhase" +
                     " or something else for an instant Tournament Tree!");
@@ -182,13 +184,36 @@ namespace TournamentTree
                 }
                 name = Console.ReadLine();
 
+                // Spieler hinzufügen bis genügend da sind und Stop eingegeben wurde
                 while (AmountOfPlayers < MINIMUM_PLAYERS_COUNT && String.Equals(name, "STOP", StringComparison.OrdinalIgnoreCase))
                 {
                     Console.WriteLine($"You have to enter at least {MINIMUM_PLAYERS_COUNT} players!");
                     name = Console.ReadLine();
+                }     
+            }
+
+            if (!CheckIfAmountOfPlayersIsPowerOfTwo())
+            {
+                Console.WriteLine("You can not create an instant Tournament tree because " + AmountOfPlayers + " is not a Power of Two");
+                Console.WriteLine("Do you wish to Fill up with Wildcards? (Open Spots which you always win against) Y/N");
+                Console.WriteLine("Warning! You can not play a Group Phase with Wildcards!");
+                if (Console.ReadKey().Key == ConsoleKey.Y)
+                {
+                    WithWildCards = true;
+                    int checkAllPowerOfTwo = 4;
+                    int temp = AmountOfPlayers - checkAllPowerOfTwo;
+                    while (temp > 0)
+                    {
+                        checkAllPowerOfTwo *= 2;
+                        temp = AmountOfPlayers - checkAllPowerOfTwo;
+                    }
+                    int amountOfWildcards = Math.Abs(temp);
+                    for (int i = 0; i < amountOfWildcards; i++)
+                    {
+                        Player wildCard = new Player(true);
+                        AllPlayers.Add(wildCard);
+                    }
                 }
-
-
             }
 
             Console.Clear();

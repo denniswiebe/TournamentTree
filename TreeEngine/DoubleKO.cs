@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace TournamentTree
@@ -35,29 +36,43 @@ namespace TournamentTree
                 List<Player> losers = new List<Player>();
                 for (int i = 0; i < Winners.Count - 1; i += 2)
                 {
-                    Console.WriteLine("Who is the Winner?");
-                    Console.WriteLine(Winners[i].ToString() + " Or " + Winners[i + 1].ToString());
-                    bool correctPlayerInput = false;
-                    while (!correctPlayerInput)
+                    if (Winners[i].PlayerID == 0 || Winners[i + 1].PlayerID == 0) // prüfen ob im Match eine Wildcard vorhanden ist
                     {
-                        string whoWonInput = Console.ReadLine();
-                        if (whoWonInput == Winners[i].PlayerName || whoWonInput == Winners[i].PlayerID.ToString())
+                        if (Winners[i].PlayerID == 0)
                         {
-                            Console.WriteLine("You Choose: " + Winners[i].ToString());
-                            losers.Add(Winners[i + 1]);
-                            correctPlayerInput = true;
-                        }
-                        else if (whoWonInput == Winners[i + 1].PlayerName || whoWonInput == Winners[i + 1].PlayerID.ToString())
-                        {
-                            Console.WriteLine("You Choose: " + Winners[i + 1].ToString());
                             losers.Add(Winners[i]);
-                            correctPlayerInput = true;
                         }
                         else
                         {
-                            Console.WriteLine("Wrong Input! Try Again.");
+                            losers.Add(Winners[i + 1]);
                         }
-                        Console.WriteLine();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Who is the Winner?");
+                        Console.WriteLine(Winners[i].ToString() + " Or " + Winners[i + 1].ToString());
+                        bool correctPlayerInput = false;
+                        while (!correctPlayerInput)
+                        {
+                            string whoWonInput = Console.ReadLine();
+                            if (whoWonInput == Winners[i].PlayerName || whoWonInput == Winners[i].PlayerID.ToString())
+                            {
+                                Console.WriteLine("You Choose: " + Winners[i].ToString());
+                                losers.Add(Winners[i + 1]);
+                                correctPlayerInput = true;
+                            }
+                            else if (whoWonInput == Winners[i + 1].PlayerName || whoWonInput == Winners[i + 1].PlayerID.ToString())
+                            {
+                                Console.WriteLine("You Choose: " + Winners[i + 1].ToString());
+                                losers.Add(Winners[i]);
+                                correctPlayerInput = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Wrong Input! Try Again.");
+                            }
+                            Console.WriteLine();
+                        }
                     }
                 }
 
@@ -73,7 +88,7 @@ namespace TournamentTree
 
 
                 Console.Clear();
-                if(Winners.Count > 1)
+                if (Winners.Count > 1)
                 {
                     Console.WriteLine(CreateWinningTree());
                 }
@@ -130,31 +145,50 @@ namespace TournamentTree
             List<Player> doubleLosers = new List<Player>();
             for (int i = 0; i < Losers.Count - 1; i += 2)
             {
-                Console.WriteLine("Who is the Winner?");
-                Console.WriteLine(Losers[i].ToString() + " Or " + Losers[i + 1].ToString());
-                bool correctPlayerInput = false;
-                while (!correctPlayerInput)
+                if (Losers[i].PlayerID == 0 && Losers[i + 1].PlayerID == 0) // prüfen ob beides WildCards sind
                 {
-                    string whoWonInput = Console.ReadLine();
-                    if (whoWonInput == Losers[i].PlayerName || whoWonInput == Losers[i].PlayerID.ToString())
+                    doubleLosers.Add(Losers[i]);
+                }
+                else if ((Losers[i].PlayerID == 0 || Losers[i + 1].PlayerID == 0)) // prüfen ob im Match eine Wildcard vorhanden ist
+                {
+                    if (Losers[i].PlayerID == 0)
                     {
-                        Console.WriteLine("You Choose: " + Losers[i].ToString());
-                        doubleLosers.Add(Losers[i + 1]);
-                        correctPlayerInput = true;
-                    }
-                    else if (whoWonInput == Losers[i + 1].PlayerName || whoWonInput == Losers[i + 1].PlayerID.ToString())
-                    {
-                        Console.WriteLine("You Choose: " + Losers[i + 1].ToString());
                         doubleLosers.Add(Losers[i]);
-                        correctPlayerInput = true;
                     }
                     else
                     {
-                        Console.WriteLine("Wrong Input! Try Again.");
+                        doubleLosers.Add(Losers[i + 1]);
                     }
-                    Console.WriteLine();
                 }
-            }            
+                else
+                {
+
+                    Console.WriteLine("Who is the Winner?");
+                    Console.WriteLine(Losers[i].ToString() + " Or " + Losers[i + 1].ToString());
+                    bool correctPlayerInput = false;
+                    while (!correctPlayerInput)
+                    {
+                        string whoWonInput = Console.ReadLine();
+                        if (whoWonInput == Losers[i].PlayerName || whoWonInput == Losers[i].PlayerID.ToString())
+                        {
+                            Console.WriteLine("You Choose: " + Losers[i].ToString());
+                            doubleLosers.Add(Losers[i + 1]);
+                            correctPlayerInput = true;
+                        }
+                        else if (whoWonInput == Losers[i + 1].PlayerName || whoWonInput == Losers[i + 1].PlayerID.ToString())
+                        {
+                            Console.WriteLine("You Choose: " + Losers[i + 1].ToString());
+                            doubleLosers.Add(Losers[i]);
+                            correctPlayerInput = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Wrong Input! Try Again.");
+                        }
+                        Console.WriteLine();
+                    }
+                }
+            }
 
             RemoveDoubleLosingPlayers(doubleLosers);
 
@@ -270,7 +304,10 @@ namespace TournamentTree
 
             if (FirstTree)
             {
-                ShufflePlayers(Winners); // zum testen nicht shufflen
+                while (!NoFreeWinsAgainstEachOther())
+                {
+                    ShufflePlayers(Winners); // zum testen nicht shufflen
+                }
             }
 
 
@@ -318,5 +355,19 @@ namespace TournamentTree
             _log.AddEntry(showTree);
             return showTree;
         }
+
+        public bool NoFreeWinsAgainstEachOther()
+        {
+            bool check = true;
+            for (int i = 0; i < Winners.Count() - 1; i++)
+            {
+                if (Winners[i].PlayerID == Winners[i + 1].PlayerID)
+                {
+                    check = false;
+                }
+            }
+            return check;
+        }
+
     }
 }
