@@ -48,6 +48,8 @@ namespace TournamentTree
             PlayMatches();
             // Endergebnisse der Gruppenphase anzeigen.
             ShowGroupsOnConsole();
+            // Gruppen im Log sammeln
+            LoadGroupsInLogEngine();
             // Ermitteln, wer die Gruppenphase überstanden hat.
             BestTwoPlayersRemain();
         }
@@ -158,6 +160,21 @@ namespace TournamentTree
                     Console.WriteLine("  " + group.Players[i].PlayerName + " P: " + group.Players[i].Points + " D: " + group.Players[i].GoalDifference);
                 }
                 Console.WriteLine();
+            }
+        }
+
+        /// <summary>
+        /// Diese Methode dient dazu die Spieler in die Log-Engine zu laden, damit diese als Tabelle dargestellt werden können.
+        /// </summary>
+        private void LoadGroupsInLogEngine()
+        {
+            foreach (Group g in Groups)
+            {
+                g.SortPlayers();
+                var players = new List<Player>();
+                foreach (var player in g.Players)
+                    players.Add(player);
+                TournamentGroupLog.Groups.Add(g.GroupId, players);
             }
         }
 

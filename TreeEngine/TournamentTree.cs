@@ -97,10 +97,10 @@ namespace TournamentTree
             }
 
             Console.WriteLine();
-            Console.WriteLine("Do you want to create an Excel file of the knockout-stage? Y/N");
+            Console.WriteLine("Do you want to create an Excel file of the tournament? Y/N");
             if (Console.ReadKey().Key == ConsoleKey.Y)
             {
-                TournamentBracketLog.GenerateBracketExcel();
+                _log.ExportToExcel();
             }
         }
 
