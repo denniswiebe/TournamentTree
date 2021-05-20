@@ -27,13 +27,13 @@ namespace TournamentTree
         public string Help()
         {
             string help;
-            if (CheckIfAmountOfPlayersIsPowerOfTwo())
-            {
-                help = "The amount of Players are " + AmountOfPlayers + ", which means you can choose between Groupphase or without.";
-            }
-            else if (AmountOfPlayers < 2)
+            if (AmountOfPlayers < 2)
             {
                 help = "The amount of Players are " + AmountOfPlayers + ", which means you need to add more Players";
+            }
+            else if (CheckIfAmountOfPlayersIsPowerOfTwo() && AmountOfPlayers >= 2)
+            {
+                help = "The amount of Players are " + AmountOfPlayers + ", which means you can choose between Groupphase or without.";
             }
             else
             {

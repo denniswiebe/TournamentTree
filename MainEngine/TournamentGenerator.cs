@@ -166,7 +166,15 @@ namespace TournamentTree
                 {
                     Console.WriteLine(helper.Suggestion());
                 }
-                else if (!String.IsNullOrWhiteSpace(name))
+                else if (String.IsNullOrWhiteSpace(name))
+                {
+                    Console.WriteLine("Player must have at least one Character!");
+                }
+                else if (PlayerAlreadyExists(name))
+                {
+                    Console.WriteLine("Player Name Already Exists!");
+                }
+                else
                 {
                     var player = new Player(name, idCounter);
                     AllPlayers.Add(player);
@@ -185,6 +193,18 @@ namespace TournamentTree
 
             Console.Clear();
             Console.WriteLine("All Players created!");
+        }
+
+        private bool PlayerAlreadyExists(string playerName)
+        {
+            bool playerExist = false;
+            foreach (Player player in AllPlayers)
+            {
+                if(String.Equals(player.PlayerName, playerName)){
+                    playerExist = true;
+                }
+            }
+            return playerExist;
         }
 
         #endregion
