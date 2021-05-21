@@ -19,6 +19,9 @@ namespace TournamentTree
 
         public static void GenerateGroupExcel(SpreadsheetDocument document, SheetData sheetData, WorksheetPart worksheetPart)
         {
+            if (Groups.Count == 0)
+                return;
+
             // Hier wird die maximale Anzahl der Zeilen im Sheet berechnet
             // Dies ist nötig, da die Excel-Datei sonst fehlerhaft gespeichert wird
             // und somit Daten verliert, wenn beispielsweise in eine Zeile geschrieben wird,

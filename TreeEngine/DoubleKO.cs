@@ -30,9 +30,11 @@ namespace TournamentTree
         public void StartWinnerTreeGenerator()
         {
             Console.WriteLine("Elimination starts!");
+            int round = 1;
             while (Winners.Count > 1)
             {
                 Console.WriteLine("Next Round!");
+                var winnerRound = new TournamentBracketLogRound(round);
                 List<Player> losers = new List<Player>();
                 for (int i = 0; i < Winners.Count - 1; i += 2)
                 {
@@ -41,10 +43,12 @@ namespace TournamentTree
                         if (Winners[i].PlayerID == 0)
                         {
                             losers.Add(Winners[i]);
+                            winnerRound.AddMatch(Winners[i].ToString(), Winners[i + 1].ToString(), false);
                         }
                         else
                         {
                             losers.Add(Winners[i + 1]);
+                            winnerRound.AddMatch(Winners[i].ToString(), Winners[i + 1].ToString(), false);
                         }
                     }
                     else
@@ -71,6 +75,8 @@ namespace TournamentTree
                             {
                                 Console.WriteLine("Wrong Input! Try Again.");
                             }
+                            if (correctPlayerInput)
+                                winnerRound.AddMatch(Winners[i].ToString(), Winners[i + 1].ToString(), whoWonInput == Winners[i].ToString());
                             Console.WriteLine();
                         }
                     }
@@ -86,6 +92,8 @@ namespace TournamentTree
 
                 MoveLosingPlayers(losers);
 
+                round++;
+                TournamentDoubleKoLog.WinnerRounds.Add(winnerRound);
 
                 Console.Clear();
                 if (Winners.Count > 1)
@@ -101,6 +109,13 @@ namespace TournamentTree
             if (Console.ReadKey().Key == ConsoleKey.Y)
             {
                 _log.CreateLog();
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Do you want to create an Excel file of the tournament? Y/N");
+            if (Console.ReadKey().Key == ConsoleKey.Y)
+            {
+                _log.ExportToExcel(true);
             }
         }
 
@@ -142,22 +157,26 @@ namespace TournamentTree
         /// </summary>
         private void PlayLoserBracket()
         {
+            var loserRound = new TournamentBracketLogRound(1);
             List<Player> doubleLosers = new List<Player>();
             for (int i = 0; i < Losers.Count - 1; i += 2)
             {
                 if (Losers[i].PlayerID == 0 && Losers[i + 1].PlayerID == 0) // prüfen ob beides WildCards sind
                 {
                     doubleLosers.Add(Losers[i]);
+                    loserRound.AddMatch(Losers[i].ToString(), Losers[i + 1].ToString(), false);
                 }
                 else if ((Losers[i].PlayerID == 0 || Losers[i + 1].PlayerID == 0)) // prüfen ob im Match eine Wildcard vorhanden ist
                 {
                     if (Losers[i].PlayerID == 0)
                     {
                         doubleLosers.Add(Losers[i]);
+                        loserRound.AddMatch(Losers[i].ToString(), Losers[i + 1].ToString(), false);
                     }
                     else
                     {
                         doubleLosers.Add(Losers[i + 1]);
+                        loserRound.AddMatch(Losers[i].ToString(), Losers[i + 1].ToString(), true);
                     }
                 }
                 else
@@ -185,12 +204,15 @@ namespace TournamentTree
                         {
                             Console.WriteLine("Wrong Input! Try Again.");
                         }
+                        if (correctPlayerInput)
+                            loserRound.AddMatch(Losers[i].ToString(), Losers[i + 1].ToString(), whoWonInput == Losers[i].ToString());
                         Console.WriteLine();
                     }
                 }
             }
 
             RemoveDoubleLosingPlayers(doubleLosers);
+            TournamentDoubleKoLog.LoserRounds.Add(loserRound);
 
             // Für 16 Spieler muss an der Stelle nochmals Loser Bracket gespielt werden und dann erst wieder Winner
             if (Winners.Count == 4 && Losers.Count == 4)
@@ -234,10 +256,14 @@ namespace TournamentTree
                     Console.WriteLine("You Choose: " + winner.ToString());
                     Console.WriteLine("Winner of the Tournament: " + winner.ToString());
                     _log.AddEntry("Winner: " + winner.ToString());
+                    var match = new TournamentBracketLogRoundMatch(winner.ToString(), loser.ToString(), whoWonInput == winner.PlayerName || whoWonInput == winner.PlayerID.ToString());
+                    TournamentDoubleKoLog.FinalMatches.Add(match);
                     break;
                 }
                 else if (whoWonInput == loser.PlayerName || whoWonInput == loser.PlayerID.ToString())
                 {
+                    var match = new TournamentBracketLogRoundMatch(winner.ToString(), loser.ToString(), whoWonInput == winner.PlayerName || whoWonInput == winner.PlayerID.ToString());
+                    TournamentDoubleKoLog.FinalMatches.Add(match);
                     Console.WriteLine("You Choose: " + loser.ToString());
                     Console.WriteLine("Second Chance!");
                     Console.WriteLine("Who is the Winner?");
@@ -258,6 +284,11 @@ namespace TournamentTree
                             Console.WriteLine("Winner of the Tournament: " + loser.ToString());
                             _log.AddEntry("Winner: " + loser.ToString());
                             correctPlayerInput = true;
+                        }
+                        if (correctPlayerInput)
+                        {
+                            var secondFinal = new TournamentBracketLogRoundMatch(winner.ToString(), loser.ToString(), WhoWonTournament == winner.PlayerName || WhoWonTournament == winner.PlayerID.ToString());
+                            TournamentDoubleKoLog.FinalMatches.Add(secondFinal);
                         }
                         else
                         {

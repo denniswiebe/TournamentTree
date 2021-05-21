@@ -36,7 +36,7 @@ namespace TournamentTree
             }
         }
 
-        public void ExportToExcel()
+        public void ExportToExcel(bool doubleKo = false)
         {
             // Neues Dokument erstellen
             var fileName = "KnockOutStage.xlsx";
@@ -48,17 +48,20 @@ namespace TournamentTree
 
                 // Groups
                 WorksheetPart worksheetPart1 = workbookPart.AddNewPart<WorksheetPart>();
-                Worksheet worksheet1 = new Worksheet();
                 SheetData sheetData1 = new SheetData();
-                worksheet1.AppendChild(sheetData1);
-                worksheetPart1.Worksheet = worksheet1;
-                Sheet sheet1 = new Sheet()
+                if (TournamentGroupLog.Groups.Count > 0)
                 {
-                    Id = document.WorkbookPart.GetIdOfPart(worksheetPart1),
-                    SheetId = 1,
-                    Name = "Groups"
-                };
-                sheets.Append(sheet1);
+                    Worksheet worksheet1 = new Worksheet();
+                    worksheet1.AppendChild(sheetData1);
+                    worksheetPart1.Worksheet = worksheet1;
+                    Sheet sheet1 = new Sheet()
+                    {
+                        Id = document.WorkbookPart.GetIdOfPart(worksheetPart1),
+                        SheetId = 1,
+                        Name = "Groups"
+                    };
+                    sheets.Append(sheet1);
+                }
 
                 // KO
                 WorksheetPart worksheetPart2 = workbookPart.AddNewPart<WorksheetPart>();
@@ -74,8 +77,12 @@ namespace TournamentTree
                 };
                 sheets.Append(sheet2);
 
-                TournamentGroupLog.GenerateGroupExcel(document, sheetData1, worksheetPart1);
-                TournamentBracketLog.GenerateBracketExcel(document, sheetData2, worksheetPart2);
+                if (TournamentGroupLog.Groups.Count > 0)
+                    TournamentGroupLog.GenerateGroupExcel(document, sheetData1, worksheetPart1);
+                if (!doubleKo)
+                    TournamentBracketLog.GenerateBracketExcel(document, sheetData2, worksheetPart2);
+                else
+                    TournamentDoubleKoLog.GenerateBracketExcel(document, sheetData2, worksheetPart2);
                 document.Close();
             }
         }
