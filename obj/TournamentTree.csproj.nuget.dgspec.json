@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "G:\\source\\repos\\TournamentTree\\TournamentTree.csproj": {}
+    "V:\\Dokumente\\GitHub\\TournamentTree\\TournamentTree.csproj": {}
   },
   "projects": {
-    "G:\\source\\repos\\TournamentTree\\TournamentTree.csproj": {
+    "V:\\Dokumente\\GitHub\\TournamentTree\\TournamentTree.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\source\\repos\\TournamentTree\\TournamentTree.csproj",
+        "projectUniqueName": "V:\\Dokumente\\GitHub\\TournamentTree\\TournamentTree.csproj",
         "projectName": "TournamentTree",
-        "projectPath": "G:\\source\\repos\\TournamentTree\\TournamentTree.csproj",
-        "packagesPath": "C:\\Users\\Dennis\\.nuget\\packages\\",
-        "outputPath": "G:\\source\\repos\\TournamentTree\\obj\\",
+        "projectPath": "V:\\Dokumente\\GitHub\\TournamentTree\\TournamentTree.csproj",
+        "packagesPath": "C:\\Users\\enzoc\\.nuget\\packages\\",
+        "outputPath": "V:\\Dokumente\\GitHub\\TournamentTree\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Dennis\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "V:\\enzoc\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,6 +26,7 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -37,6 +38,13 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "DocumentFormat.OpenXml": {
+              "target": "Package",
+              "version": "[2.13.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -52,7 +60,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }

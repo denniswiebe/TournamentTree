@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TournamentTree", "TournamentTree.csproj", "{35E98703-6DDD-4D62-A271-18643F8FE278}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TournamentTree", "TournamentTree.csproj", "{35E98703-6DDD-4D62-A271-18643F8FE278}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SourceCode", "SourceCode", "{0DA06CC9-07FA-4D69-8B47-8A6EF7816DA4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{A5849E0D-4D92-4E23-9FCD-78EABADA5D78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TournamentTree.UnitTests", "TournamentTree.UnitTests\TournamentTree.UnitTests.csproj", "{D0965AF7-D0B9-48B2-A033-158F983CEDDD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +21,17 @@ Global
 		{35E98703-6DDD-4D62-A271-18643F8FE278}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35E98703-6DDD-4D62-A271-18643F8FE278}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35E98703-6DDD-4D62-A271-18643F8FE278}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0965AF7-D0B9-48B2-A033-158F983CEDDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0965AF7-D0B9-48B2-A033-158F983CEDDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0965AF7-D0B9-48B2-A033-158F983CEDDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0965AF7-D0B9-48B2-A033-158F983CEDDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{35E98703-6DDD-4D62-A271-18643F8FE278} = {0DA06CC9-07FA-4D69-8B47-8A6EF7816DA4}
+		{D0965AF7-D0B9-48B2-A033-158F983CEDDD} = {A5849E0D-4D92-4E23-9FCD-78EABADA5D78}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4FB8C969-683C-488B-A094-40B9366FBE6C}

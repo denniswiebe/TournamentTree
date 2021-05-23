@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "QKMD8EmWkuNJWbKQQI18xWhOPlDE1AEvzW7029J65/6LwnaPnRhZTUUEjfOPGFcqrZKvDdazdZL/3B/DFlvOFg==",
+  "dgSpecHash": "n6yewZk1WhS/1+w6axXxtOHrleuKc/o8AZQOckiUExibIDbh7DRUWU0cSU2jnorMGoLGsnK2/XQuI1lIR0Aitg==",
   "success": true,
-  "projectFilePath": "G:\\source\\repos\\TournamentTree\\TournamentTree.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "V:\\Dokumente\\GitHub\\TournamentTree\\TournamentTree.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\enzoc\\.nuget\\packages\\documentformat.openxml\\2.13.0\\documentformat.openxml.2.13.0.nupkg.sha512",
+    "C:\\Users\\enzoc\\.nuget\\packages\\system.io.packaging\\4.7.0\\system.io.packaging.4.7.0.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="TournamentTree.UnitTests\**" />
+    <EmbeddedResource Remove="TournamentTree.UnitTests\**" />
+    <None Remove="TournamentTree.UnitTests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DocumentFormat.OpenXml" Version="2.13.0" />
   </ItemGroup>
 
