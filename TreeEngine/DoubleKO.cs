@@ -76,7 +76,7 @@ namespace TournamentTree
                                 Console.WriteLine("Wrong Input! Try Again.");
                             }
                             if (correctPlayerInput)
-                                winnerRound.AddMatch(Winners[i].ToString(), Winners[i + 1].ToString(), whoWonInput == Winners[i].ToString());
+                                winnerRound.AddMatch(Winners[i].ToString(), Winners[i + 1].ToString(), whoWonInput == Winners[i].PlayerName || whoWonInput == Winners[i].PlayerID.ToString());
                             Console.WriteLine();
                         }
                     }
@@ -205,7 +205,7 @@ namespace TournamentTree
                             Console.WriteLine("Wrong Input! Try Again.");
                         }
                         if (correctPlayerInput)
-                            loserRound.AddMatch(Losers[i].ToString(), Losers[i + 1].ToString(), whoWonInput == Losers[i].ToString());
+                            loserRound.AddMatch(Losers[i].ToString(), Losers[i + 1].ToString(), whoWonInput == Losers[i].PlayerName || whoWonInput == Losers[i].PlayerID.ToString());
                         Console.WriteLine();
                     }
                 }

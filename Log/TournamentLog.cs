@@ -132,5 +132,12 @@ namespace TournamentTree
 
             return ((char)asciiNumber).ToString();
         }
+
+        public static void WriteValueInCell(Worksheet worksheet, CellValues cellValue, string text, int column, int row)
+        {
+            Cell cell = GetCell(worksheet, GetLetterByNumber(column), row);
+            cell.CellValue = new CellValue(text);
+            cell.DataType = new EnumValue<CellValues>(cellValue);
+        }
     }
 }

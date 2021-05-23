@@ -69,7 +69,7 @@ namespace TournamentTree
                                 Console.WriteLine("Wrong Input! Try Again.");
                             }
                             if (correctPlayerInput)
-                                tournamentBracketLogRound.AddMatch(Players[i].ToString(), Players[i + 1].ToString(), whoWonInput == Players[i].ToString());
+                                tournamentBracketLogRound.AddMatch(Players[i].ToString(), Players[i + 1].ToString(), whoWonInput == Players[i].PlayerName || whoWonInput == Players[i].PlayerID.ToString());
                             Console.WriteLine();
                         }
                     }
