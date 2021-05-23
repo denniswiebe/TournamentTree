@@ -8,7 +8,6 @@ namespace TournamentTree.UnitTests
         [TestMethod]
         public void AmountOfPlayersIsPowerOfTwo()
         {
-            // Erzeugen eines Moc
             TournamentGenerator generator = new TournamentGenerator();
             var playerOne = new Player("PlayerOne", 1);
             var playerTwo = new Player("PlayerTwo", 2);

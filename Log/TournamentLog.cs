@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace TournamentTree
 {
-    class TournamentLog
+    public class TournamentLog
     {
         public List<String> LogEntries { get; set; } = new List<string>();
 
