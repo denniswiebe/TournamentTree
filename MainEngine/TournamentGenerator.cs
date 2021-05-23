@@ -6,7 +6,7 @@ using System.Text;
 namespace TournamentTree
 {
 
-    class TournamentGenerator
+    public class TournamentGenerator
     {
         #region Private Members
 
@@ -138,7 +138,7 @@ namespace TournamentTree
         /// einen Binärstring gewandelt und in diesem werden alle 1 gezählt.
         /// </summary>
         /// <returns>true, wenn Spieleranzahl eine Potenz von 2 ist, ansonsten false.</returns>
-        private bool CheckIfAmountOfPlayersIsPowerOfTwo()
+        public bool CheckIfAmountOfPlayersIsPowerOfTwo()
         {
             var playersCountBinary = Convert.ToString(AmountOfPlayers, 2);
             var count = playersCountBinary.Count(u => u == '1');
