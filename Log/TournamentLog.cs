@@ -113,71 +113,24 @@ namespace TournamentTree
         }
 
         /// <summary>
-        /// Komische Methode, die aus einer Zahl einen Buchstaben zurückgibt.
-        /// Weiß nicht, ob Excel beispielsweise aus 11 automatisch A1 macht, 
-        /// das muss noch weiter untersucht werden.
+        /// Diese Methode gibt ausgehend von einer Zahl den passenden Buchstaben zurück
+        /// Also: 1 = A, 2 = B, 3 = C, ...
         /// </summary>
         /// <param name="number">Um welche Spalte handelt es sich?</param>
         /// <returns></returns>
         public static string GetLetterByNumber(int number)
         {
-            switch (number)
-            {
-                case 1:
-                    return "A";
-                case 2:
-                    return "B";
-                case 3:
-                    return "C";
-                case 4:
-                    return "D";
-                case 5:
-                    return "E";
-                case 6:
-                    return "F";
-                case 7:
-                    return "G";
-                case 8:
-                    return "H";
-                case 9:
-                    return "I";
-                case 10:
-                    return "J";
-                case 11:
-                    return "K";
-                case 12:
-                    return "L";
-                case 13:
-                    return "M";
-                case 14:
-                    return "N";
-                case 15:
-                    return "O";
-                case 16:
-                    return "P";
-                case 17:
-                    return "Q";
-                case 18:
-                    return "R";
-                case 19:
-                    return "S";
-                case 20:
-                    return "T";
-                case 21:
-                    return "U";
-                case 22:
-                    return "V";
-                case 23:
-                    return "W";
-                case 24:
-                    return "X";
-                case 25:
-                    return "Y";
-                case 26:
-                    return "Z";
-                default:
-                    return "UNKNOWN";
-            }
+            // Da der Buchstabe A den ASCII-Code 65 hat, muss der Parameter der Methode mit 64 addiert werden,
+            // sodass der korrekte Buchstabe ermittelt werden kann.
+            var asciiNumber = number + 64;
+
+            // Ist der Wert von asciiNumber nun nicht im Bereich der 26 Buchstaben
+            // wird eine Exception geworfen, da dies nicht möglich sein kann
+            // und es sich somit um einen Fehler im Code handelt.
+            if (asciiNumber < 65 || asciiNumber > 90)
+                throw new ApplicationException("number represents no letter from the alphabet");
+
+            return ((char)asciiNumber).ToString();
         }
     }
 }
