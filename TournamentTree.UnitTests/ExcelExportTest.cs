@@ -22,18 +22,18 @@ namespace TournamentTree.UnitTests
         public void GroupExportTest()
         {
             // Alle Gruppenspiele hinzufügen
-            TournamentGroupLog.AddMatch(PLAYER_THREE, PLAYER_FOUR, 1, 1);
-            TournamentGroupLog.AddMatch(PLAYER_FIVE, PLAYER_FOUR, 1, 1);
-            TournamentGroupLog.AddMatch(PLAYER_THREE, PLAYER_SEVEN, 1, 1);
-            TournamentGroupLog.AddMatch(PLAYER_SIX, PLAYER_ONE, 1, 1);
-            TournamentGroupLog.AddMatch(PLAYER_FIVE, PLAYER_SEVEN, 1, 1);
-            TournamentGroupLog.AddMatch(PLAYER_FOUR, PLAYER_SEVEN, 1, 1);
-            TournamentGroupLog.AddMatch(PLAYER_ONE, PLAYER_TWO, 1, 1);
-            TournamentGroupLog.AddMatch(PLAYER_SIX, PLAYER_EIGHT, 1, 1);
-            TournamentGroupLog.AddMatch(PLAYER_SIX, PLAYER_TWO, 1, 1);
-            TournamentGroupLog.AddMatch(PLAYER_ONE, PLAYER_EIGHT, 1, 1);
-            TournamentGroupLog.AddMatch(PLAYER_FIVE, PLAYER_THREE, 1, 1);
-            TournamentGroupLog.AddMatch(PLAYER_EIGHT, PLAYER_TWO, 1, 1);
+            TournamentGroupLog.AddMatch(TournamentGroupLogMatch.Create(PLAYER_THREE, PLAYER_FOUR, 1, 1));
+            TournamentGroupLog.AddMatch(TournamentGroupLogMatch.Create(PLAYER_FIVE, PLAYER_FOUR, 1, 1));
+            TournamentGroupLog.AddMatch(TournamentGroupLogMatch.Create(PLAYER_THREE, PLAYER_SEVEN, 1, 1));
+            TournamentGroupLog.AddMatch(TournamentGroupLogMatch.Create(PLAYER_SIX, PLAYER_ONE, 1, 1));
+            TournamentGroupLog.AddMatch(TournamentGroupLogMatch.Create(PLAYER_FIVE, PLAYER_SEVEN, 1, 1));
+            TournamentGroupLog.AddMatch(TournamentGroupLogMatch.Create(PLAYER_FOUR, PLAYER_SEVEN, 1, 1));
+            TournamentGroupLog.AddMatch(TournamentGroupLogMatch.Create(PLAYER_ONE, PLAYER_TWO, 1, 1));
+            TournamentGroupLog.AddMatch(TournamentGroupLogMatch.Create(PLAYER_SIX, PLAYER_EIGHT, 1, 1));
+            TournamentGroupLog.AddMatch(TournamentGroupLogMatch.Create(PLAYER_SIX, PLAYER_TWO, 1, 1));
+            TournamentGroupLog.AddMatch(TournamentGroupLogMatch.Create(PLAYER_ONE, PLAYER_EIGHT, 1, 1));
+            TournamentGroupLog.AddMatch(TournamentGroupLogMatch.Create(PLAYER_FIVE, PLAYER_THREE, 1, 1));
+            TournamentGroupLog.AddMatch(TournamentGroupLogMatch.Create(PLAYER_EIGHT, PLAYER_TWO, 1, 1));
 
             // Gruppen erzeugen
             var groupA = new List<Player>();

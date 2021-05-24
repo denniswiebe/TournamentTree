@@ -12,9 +12,9 @@ namespace TournamentTree
         public static List<TournamentGroupLogMatch> AllMatches { get; } = new List<TournamentGroupLogMatch>();
         public static Dictionary<int, List<Player>> Groups { get; } = new Dictionary<int, List<Player>>();
 
-        public static void AddMatch(string p1, string p2, int p1p, int p2p)
+        public static void AddMatch(TournamentGroupLogMatch match)
         {
-            AllMatches.Add(new TournamentGroupLogMatch(p1, p2, p1p, p2p));
+            AllMatches.Add(match);
         }
 
         public static void GenerateGroupExcel(SpreadsheetDocument document, SheetData sheetData, WorksheetPart worksheetPart)
