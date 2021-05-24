@@ -20,8 +20,7 @@ namespace TournamentTree
         public DoubleElimination(List<Player> players)
         {
             Winners = players;
-            Console.WriteLine(CreateTree());
-            FirstTree = false;
+            Console.WriteLine(CreateTree(Winners, "Winning Bracket"));
         }
 
         /// <summary>
@@ -86,7 +85,7 @@ namespace TournamentTree
                 if (Winners.Count == 2)
                 {
                     Console.Clear();
-                    Console.WriteLine(CreateLosingTree());
+                    Console.WriteLine(CreateTree(losers, "Losing Bracket"));
                     PlayLoserBracket();
                 }
 
@@ -98,7 +97,7 @@ namespace TournamentTree
                 Console.Clear();
                 if (Winners.Count > 1)
                 {
-                    Console.WriteLine(CreateTree());
+                    Console.WriteLine(CreateTree(Winners, "Winning Bracket"));
                 }
             }
 
@@ -147,7 +146,7 @@ namespace TournamentTree
                 }
             }
             Console.Clear();
-            Console.WriteLine(CreateLosingTree());
+            Console.WriteLine(CreateTree(Losers, "Losing Bracket"));
 
             PlayLoserBracket();
         }
@@ -218,7 +217,7 @@ namespace TournamentTree
             if (Winners.Count == 4 && Losers.Count == 4)
             {
                 Console.Clear();
-                Console.WriteLine(CreateLosingTree());
+                Console.WriteLine(CreateTree(Losers, "Losing Bracket"));
                 PlayLoserBracket();
             }
         }
@@ -328,23 +327,24 @@ namespace TournamentTree
         /// Baut das Winning Bracket auf und zeigt es an
         /// </summary>
         /// <returns></returns>
-        public string CreateTree()
+        public string CreateTree(IList<Player> players, string winnerOrLoserBracket = "Bracket")
         {
-            string showTree = "Winning Bracket\n";
-            showTree += "------------------------------------------------------\n\n";
+            string showTree = winnerOrLoserBracket;
+            showTree += "\n------------------------------------------------------\n\n";
 
             if (FirstTree)
             {
-                while (!NoFreeWinsAgainstEachOther())
+                while (!NoFreeWinsAgainstEachOther(players))
                 {
-                    ShufflePlayers(Winners); // zum testen nicht shufflen
+                    ShufflePlayers(players);
                 }
+                FirstTree = false;
             }
 
 
-            for (int i = 0; i < Winners.Count; i++)
+            for (int i = 0; i < players.Count; i++)
             {
-                showTree += Winners[i].ToString() + "\n";
+                showTree += players[i].ToString() + "\n";
                 if (i % 2 == 0)
                 {
                     showTree += "VERSUS\n";
@@ -358,46 +358,6 @@ namespace TournamentTree
 
             _log.AddEntry(showTree);
             return showTree;
-        }
-
-        /// <summary>
-        /// Baut das LoserBracket auf und zeigt es an
-        /// </summary>
-        /// <returns></returns>
-        private string CreateLosingTree()
-        {
-            string showTree = "Losing Bracket\n";
-            showTree += "------------------------------------------------------\n\n";
-
-            for (int i = 0; i < Losers.Count; i++)
-            {
-                showTree += Losers[i].ToString() + "\n";
-                if (i % 2 == 0)
-                {
-                    showTree += "VERSUS\n";
-                }
-                else
-                {
-                    showTree += "\n";
-                }
-            }
-            showTree += "------------------------------------------------------\n";
-
-            _log.AddEntry(showTree);
-            return showTree;
-        }
-
-        public bool NoFreeWinsAgainstEachOther()
-        {
-            bool check = true;
-            for (int i = 0; i < Winners.Count() - 1; i++)
-            {
-                if (Winners[i].PlayerID == Winners[i + 1].PlayerID)
-                {
-                    check = false;
-                }
-            }
-            return check;
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace TournamentTree
@@ -31,6 +32,19 @@ namespace TournamentTree
                 playerList[i] = playerList[randomNumber];
                 playerList[randomNumber] = tempPlayer;
             }
+        }
+
+        public bool NoFreeWinsAgainstEachOther(IList<Player> playerList)
+        {
+            bool check = true;
+            for (int i = 0; i < playerList.Count() - 1; i++)
+            {
+                if (playerList[i].PlayerID == playerList[i + 1].PlayerID)
+                {
+                    check = false;
+                }
+            }
+            return check;
         }
     }
 }

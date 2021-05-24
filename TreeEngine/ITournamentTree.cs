@@ -11,6 +11,6 @@ namespace TournamentTree
 
         void EliminateLosingPlayers(List<Player> losers);
 
-        string CreateTree();
+        string CreateTree(IList<Player> players, string winnerOrLoserBracket = "Bracket");
     }
 }

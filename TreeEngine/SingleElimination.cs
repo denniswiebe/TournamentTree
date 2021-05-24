@@ -16,8 +16,7 @@ namespace TournamentTree
         public SingleElimination(List<Player> players)
         {
             Players = players;
-            Console.WriteLine(CreateTree());
-            FirstTree = false;
+            Console.WriteLine(CreateTree(Players));
         }
 
         public void StartTreeGenerator()
@@ -82,7 +81,7 @@ namespace TournamentTree
                 if (Players.Count != 1)
                 {
                     Console.Clear();
-                    Console.WriteLine(CreateTree());
+                    Console.WriteLine(CreateTree(Players));
                 }
             }
             Console.Clear();
@@ -104,22 +103,24 @@ namespace TournamentTree
             }
         }
 
-        public string CreateTree()
+        public string CreateTree(IList<Player> players, string winnerOrLoserBracket = "Bracket")
         {
-            string showTree = "------------------------------------------------------\n\n";
+            string showTree = winnerOrLoserBracket;
+            showTree += "\n------------------------------------------------------\n\n";
 
             if (FirstTree)
             {
-                while (!NoFreeWinsAgainstEachOther())
+                do
                 {
-                    ShufflePlayers(Players);
-                }
+                    ShufflePlayers(players);
+                } while (!NoFreeWinsAgainstEachOther(players));
+                FirstTree = false;
             }
 
 
-            for (int i = 0; i < Players.Count; i++)
+            for (int i = 0; i < players.Count; i++)
             {
-                showTree += Players[i].ToString() + "\n";
+                showTree += players[i].ToString() + "\n";
                 if (i % 2 == 0)
                 {
                     showTree += "VERSUS\n";
@@ -133,19 +134,6 @@ namespace TournamentTree
 
             _log.AddEntry(showTree);
             return showTree;
-        }
-
-        public bool NoFreeWinsAgainstEachOther()
-        {
-            bool check = true;
-            for (int i = 0; i < Players.Count() - 1; i++)
-            {
-                if (Players[i].PlayerID == Players[i + 1].PlayerID)
-                {
-                    check = false;
-                }
-            }
-            return check;
         }
 
         public void EliminateLosingPlayers(List<Player> losers)
