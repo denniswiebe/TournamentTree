@@ -9,7 +9,7 @@ namespace TournamentTree
     /// <summary>
     /// 
     /// </summary>
-    class Group
+    public class Group
     {
         public IList<Player> Players { get; set; }
         public int GroupId { get; set; }

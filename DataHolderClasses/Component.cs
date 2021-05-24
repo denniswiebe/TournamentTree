@@ -8,8 +8,9 @@ namespace TournamentTree
     /// <summary>
     /// Holds necessary Methods for the components
     /// </summary>
-    class Component
+    public class Component
     {
+
         public void ShuffleMatches(IList<Match> matches)
         {
             Random rand = new Random();

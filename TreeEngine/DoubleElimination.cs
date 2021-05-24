@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TournamentTree
 {
-    class DoubleElimination : Component, ITournamentTree
+    public class DoubleElimination : Component, ITournamentTree
     {
         public IList<Player> Winners { get; set; }
 

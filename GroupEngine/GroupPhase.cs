@@ -6,7 +6,7 @@ using System.Text;
 
 namespace TournamentTree
 {
-    class GroupPhase : Component
+    public class GroupPhase : Component
     {
         public IList<Group> Groups { get; set; }
 
