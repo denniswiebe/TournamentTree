@@ -81,13 +81,13 @@ namespace TournamentTree.UnitTests
                 TournamentGroupLog.GenerateGroupExcel(document, sheetdata, worksheetPart);
 
                 // Daten, die aus der Datei benötigt werden, sodass die Tests durchgeführt werden können
-                var playerCell = TournamentLog.GetCell(worksheetPart.Worksheet, "J", 2);
-                var firstValueCell = TournamentLog.GetCell(worksheetPart.Worksheet, "B", 2);
-                var secondValueCell = TournamentLog.GetCell(worksheetPart.Worksheet, "B", 3);
-                var firstGroupNameCell = TournamentLog.GetCell(worksheetPart.Worksheet, "A", 14);
-                var groupWinnerCell = TournamentLog.GetCell(worksheetPart.Worksheet, "A", 15);
-                var groupDifferenceCell = TournamentLog.GetCell(worksheetPart.Worksheet, "B", 21);
-                var groupPointsCell = TournamentLog.GetCell(worksheetPart.Worksheet, "C", 24);
+                var playerCell = CellFinder.GetCell(worksheetPart.Worksheet, 10, 2);
+                var firstValueCell = CellFinder.GetCell(worksheetPart.Worksheet, 2, 2);
+                var secondValueCell = CellFinder.GetCell(worksheetPart.Worksheet, 2, 3);
+                var firstGroupNameCell = CellFinder.GetCell(worksheetPart.Worksheet, 1, 14);
+                var groupWinnerCell = CellFinder.GetCell(worksheetPart.Worksheet, 1, 15);
+                var groupDifferenceCell = CellFinder.GetCell(worksheetPart.Worksheet, 2, 21);
+                var groupPointsCell = CellFinder.GetCell(worksheetPart.Worksheet, 3, 24);
 
                 int firstValue, secondValue;
                 firstValueCell.CellValue.TryGetInt(out firstValue);
@@ -145,10 +145,10 @@ namespace TournamentTree.UnitTests
                 TournamentBracketLog.GenerateBracketExcel(document, sheetdata, worksheetPart);
 
                 // Zellen aus dem Dokument laden, welche angeschaut werden müssen
-                var firstUsedCell = TournamentLog.GetCell(worksheetPart.Worksheet, "A", 2);
-                var firstRoundStartCell = TournamentLog.GetCell(worksheetPart.Worksheet, "A", 3);
-                var secondRoundStartCell = TournamentLog.GetCell(worksheetPart.Worksheet, "B", 4);
-                var thirdRoundStartCell = TournamentLog.GetCell(worksheetPart.Worksheet, "C", 6);
+                var firstUsedCell = CellFinder.GetCell(worksheetPart.Worksheet, 1, 2);
+                var firstRoundStartCell = CellFinder.GetCell(worksheetPart.Worksheet, 1, 3);
+                var secondRoundStartCell = CellFinder.GetCell(worksheetPart.Worksheet, 2, 4);
+                var thirdRoundStartCell = CellFinder.GetCell(worksheetPart.Worksheet, 3, 6);
 
                 // Tests durchführen
                 Assert.IsTrue(firstUsedCell != null && firstUsedCell.DataType == CellValues.String);

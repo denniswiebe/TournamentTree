@@ -13,11 +13,11 @@ namespace TournamentTree.UnitTests
         public void GetLetterByNumberTest()
         {
             // Prüfen, ob bei 2 auch ein B kommt
-            Assert.AreEqual(TournamentLog.GetLetterByNumber(2), "B");
+            Assert.AreEqual(CellFinder.GetLetterByNumber(2), "B");
 
             // Methode mit falscher Zahl aufrufen, sodass dort die Exception geworfen wird
             // Der Test darf nicht schiefgehen
-            TournamentLog.GetLetterByNumber(1000);
+            CellFinder.GetLetterByNumber(1000);
         }
     }
 }

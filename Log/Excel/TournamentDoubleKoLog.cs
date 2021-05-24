@@ -15,11 +15,7 @@ namespace TournamentTree
 
         public static void GenerateBracketExcel(SpreadsheetDocument document, SheetData sheetData, WorksheetPart worksheetPart)
         {
-            for (int i = 1; i <= 100; i++)
-            {
-                var row = new Row { RowIndex = (uint)i };
-                sheetData.AppendChild(row);
-            }
+            RowsCreator.CreateRows(sheetData, 100);
 
             // Variablen für die Startpositionen des ersten Spiels der jeweiligen Runde
             // nextStartPosition ist dafür da, sich die Position zu merken, wann das erste "VS"
@@ -33,7 +29,7 @@ namespace TournamentTree
             for (int i = 0; i <= WinnerRounds.Count; i++)
             {
                 // Zelle ermittelt, in die der Rundenname geschrieben wird
-                Cell cell = TournamentLog.GetCell(worksheetPart.Worksheet, TournamentLog.GetLetterByNumber(i + 1), 2);
+                Cell cell = CellFinder.GetCell(worksheetPart.Worksheet, i + 1, 2);
                 string text = $"Round {i + 1}";
                 if (i == WinnerRounds.Count)
                     text = "Winner";
@@ -53,7 +49,7 @@ namespace TournamentTree
                     {
                         // Daten des Spiels in die Zellen schreiben
                         // Erster Spieler des Spiels
-                        var firstPlayerCell = TournamentLog.GetCell(worksheetPart.Worksheet, TournamentLog.GetLetterByNumber(i + 1), startPosition);
+                        var firstPlayerCell = CellFinder.GetCell(worksheetPart.Worksheet, i + 1, startPosition);
                         firstPlayerCell.CellValue = new CellValue(match.PlayerOne);
                         firstPlayerCell.DataType = new EnumValue<CellValues>(CellValues.String);
 
@@ -61,12 +57,12 @@ namespace TournamentTree
                         var vsPosition = startPosition + Convert.ToInt32(Math.Pow(2, i));
                         if (!nextStartposition.HasValue)
                             nextStartposition = vsPosition;
-                        var vsCell = TournamentLog.GetCell(worksheetPart.Worksheet, TournamentLog.GetLetterByNumber(i + 1), vsPosition);
+                        var vsCell = CellFinder.GetCell(worksheetPart.Worksheet, i + 1, vsPosition);
                         vsCell.CellValue = new CellValue("vs");
                         vsCell.DataType = new EnumValue<CellValues>(CellValues.String);
 
                         // Zweiter Spieler des Spiels
-                        var secondPlayerCell = TournamentLog.GetCell(worksheetPart.Worksheet, TournamentLog.GetLetterByNumber(i + 1), startPosition + 2 * Convert.ToInt32(Math.Pow(2, i)));
+                        var secondPlayerCell = CellFinder.GetCell(worksheetPart.Worksheet, i + 1, startPosition + 2 * Convert.ToInt32(Math.Pow(2, i)));
                         secondPlayerCell.CellValue = new CellValue(match.PlayerTwo);
                         secondPlayerCell.DataType = new EnumValue<CellValues>(CellValues.String);
 
@@ -86,7 +82,7 @@ namespace TournamentTree
                     var match = WinnerRounds[i - 1].Matches[0];
                     var winner = match.FirstPlayerWin ? match.PlayerOne : match.PlayerTwo;
 
-                    var winnerCell = TournamentLog.GetCell(worksheetPart.Worksheet, TournamentLog.GetLetterByNumber(i + 1), startPosition);
+                    var winnerCell = CellFinder.GetCell(worksheetPart.Worksheet, i + 1, startPosition);
                     winnerCell.CellValue = new CellValue(winner);
                     winnerCell.DataType = new EnumValue<CellValues>(CellValues.String);
                 }
@@ -117,7 +113,7 @@ namespace TournamentTree
                     {
                         // Daten des Spiels in die Zellen schreiben
                         // Erster Spieler des Spiels
-                        var firstPlayerCell = TournamentLog.GetCell(worksheetPart.Worksheet, TournamentLog.GetLetterByNumber(i + 1), startPosition);
+                        var firstPlayerCell = CellFinder.GetCell(worksheetPart.Worksheet, i + 1, startPosition);
                         firstPlayerCell.CellValue = new CellValue(match.PlayerOne);
                         firstPlayerCell.DataType = new EnumValue<CellValues>(CellValues.String);
 
@@ -125,12 +121,12 @@ namespace TournamentTree
                         var vsPosition = startPosition + Convert.ToInt32(Math.Pow(2, i));
                         if (!nextStartposition.HasValue)
                             nextStartposition = vsPosition;
-                        var vsCell = TournamentLog.GetCell(worksheetPart.Worksheet, TournamentLog.GetLetterByNumber(i + 1), vsPosition);
+                        var vsCell = CellFinder.GetCell(worksheetPart.Worksheet, i + 1, vsPosition);
                         vsCell.CellValue = new CellValue("vs");
                         vsCell.DataType = new EnumValue<CellValues>(CellValues.String);
 
                         // Zweiter Spieler des Spiels
-                        var secondPlayerCell = TournamentLog.GetCell(worksheetPart.Worksheet, TournamentLog.GetLetterByNumber(i + 1), startPosition + 2 * Convert.ToInt32(Math.Pow(2, i)));
+                        var secondPlayerCell = CellFinder.GetCell(worksheetPart.Worksheet, i + 1, startPosition + 2 * Convert.ToInt32(Math.Pow(2, i)));
                         secondPlayerCell.CellValue = new CellValue(match.PlayerTwo);
                         secondPlayerCell.DataType = new EnumValue<CellValues>(CellValues.String);
 
@@ -148,7 +144,7 @@ namespace TournamentTree
                     var match = LoserRounds[i - 1].Matches[0];
                     var winner = match.FirstPlayerWin ? match.PlayerOne : match.PlayerTwo;
 
-                    var winnerCell = TournamentLog.GetCell(worksheetPart.Worksheet, TournamentLog.GetLetterByNumber(i + 1), startPosition);
+                    var winnerCell = CellFinder.GetCell(worksheetPart.Worksheet, i + 1, startPosition);
                     winnerCell.CellValue = new CellValue(winner);
                     winnerCell.DataType = new EnumValue<CellValues>(CellValues.String);
                 }
@@ -165,7 +161,7 @@ namespace TournamentTree
 
             nextStartposition = null;
             startPosition = firstFinalPosition.Value;
-            Cell finalCell = TournamentLog.GetCell(worksheetPart.Worksheet, "A", startPosition);
+            Cell finalCell = CellFinder.GetCell(worksheetPart.Worksheet, 1, startPosition);
             finalCell.CellValue = new CellValue("Finals");
             finalCell.DataType = new EnumValue<CellValues>(CellValues.String);
             startPosition++;
@@ -173,7 +169,7 @@ namespace TournamentTree
             {
                 // Daten des Spiels in die Zellen schreiben
                 // Erster Spieler des Spiels
-                var firstPlayerCell = TournamentLog.GetCell(worksheetPart.Worksheet, "A", startPosition);
+                var firstPlayerCell = CellFinder.GetCell(worksheetPart.Worksheet, 1, startPosition);
                 firstPlayerCell.CellValue = new CellValue(final.PlayerOne.ToString());
                 firstPlayerCell.DataType = new EnumValue<CellValues>(CellValues.String);
 
@@ -181,16 +177,16 @@ namespace TournamentTree
                 var vsPosition = startPosition + 1;
                 if (!nextStartposition.HasValue)
                     nextStartposition = vsPosition;
-                var vsCell = TournamentLog.GetCell(worksheetPart.Worksheet, "A", vsPosition);
+                var vsCell = CellFinder.GetCell(worksheetPart.Worksheet, 1, vsPosition);
                 vsCell.CellValue = new CellValue("vs");
                 vsCell.DataType = new EnumValue<CellValues>(CellValues.String);
 
                 // Zweiter Spieler des Spiels
-                var secondPlayerCell = TournamentLog.GetCell(worksheetPart.Worksheet, "A", startPosition + 2);
+                var secondPlayerCell = CellFinder.GetCell(worksheetPart.Worksheet, 1, startPosition + 2);
                 secondPlayerCell.CellValue = new CellValue(final.PlayerTwo.ToString());
                 secondPlayerCell.DataType = new EnumValue<CellValues>(CellValues.String);
 
-                var winnerCell = TournamentLog.GetCell(worksheetPart.Worksheet, "B", vsPosition);
+                var winnerCell = CellFinder.GetCell(worksheetPart.Worksheet, 2, vsPosition);
                 var winner = final.FirstPlayerWin ? final.PlayerOne.ToString() : final.PlayerTwo.ToString();
                 winnerCell.CellValue = new CellValue(winner);
                 winnerCell.DataType = new EnumValue<CellValues>(CellValues.String);

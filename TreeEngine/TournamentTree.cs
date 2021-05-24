@@ -100,7 +100,7 @@ namespace TournamentTree
             Console.WriteLine("Do you want to create an Excel file of the tournament? Y/N");
             if (Console.ReadKey().Key == ConsoleKey.Y)
             {
-                _log.ExportToExcel();
+                ExcelExporter.ExportToExcel();
             }
         }
 
