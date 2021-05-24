@@ -85,7 +85,7 @@ namespace TournamentTree
                 if (Winners.Count == 2)
                 {
                     Console.Clear();
-                    Console.WriteLine(CreateTree(losers, "Losing Bracket"));
+                    Console.WriteLine(CreateTree(Losers, "Losing Bracket"));
                     PlayLoserBracket();
                 }
 
@@ -334,10 +334,10 @@ namespace TournamentTree
 
             if (FirstTree)
             {
-                while (!NoFreeWinsAgainstEachOther(players))
+                do
                 {
                     ShufflePlayers(players);
-                }
+                } while (!NoFreeWinsAgainstEachOther(players));
                 FirstTree = false;
             }
 
