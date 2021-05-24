@@ -87,7 +87,7 @@ namespace TournamentTree
 
                     Console.Clear();
                     Console.WriteLine("Creating Tournament Tree!");
-                    TournamentTree tree = new TournamentTree(groupPhase.RemainingPlayers);
+                    SingleElimination tree = new SingleElimination(groupPhase.RemainingPlayers);
                     tree.StartTreeGenerator();
                 }
                 else
@@ -105,13 +105,13 @@ namespace TournamentTree
                 if (Console.ReadKey().Key == ConsoleKey.Y)
                 {
                     Console.Clear();
-                    DoubleKO doubleKO = new DoubleKO(AllPlayers);
-                    doubleKO.StartWinnerTreeGenerator();
+                    DoubleElimination doubleKO = new DoubleElimination(AllPlayers);
+                    doubleKO.StartTreeGenerator();
                 }
                 else
                 {
                     Console.Clear();
-                    TournamentTree tree = new TournamentTree(AllPlayers);
+                    SingleElimination tree = new SingleElimination(AllPlayers);
                     tree.StartTreeGenerator();
                 }
             }

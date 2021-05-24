@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TournamentTree
 {
-    class TournamentTree : Component
+    class SingleElimination : Component, ITournamentTree
     {
         public IList<Player> Players { get; set; }
 
@@ -13,7 +13,7 @@ namespace TournamentTree
 
         public TournamentLog _log = new TournamentLog();
 
-        public TournamentTree(List<Player> players)
+        public SingleElimination(List<Player> players)
         {
             Players = players;
             Console.WriteLine(CreateTree());
@@ -104,15 +104,7 @@ namespace TournamentTree
             }
         }
 
-        private void EliminateLosingPlayers(List<Player> losers)
-        {
-            foreach (Player loser in losers)
-            {
-                Players.Remove(loser);
-            }
-        }
-
-        private string CreateTree()
+        public string CreateTree()
         {
             string showTree = "------------------------------------------------------\n\n";
 
@@ -154,6 +146,14 @@ namespace TournamentTree
                 }
             }
             return check;
+        }
+
+        public void EliminateLosingPlayers(List<Player> losers)
+        {
+            foreach (Player loser in losers)
+            {
+                Players.Remove(loser);
+            }
         }
     }
 }

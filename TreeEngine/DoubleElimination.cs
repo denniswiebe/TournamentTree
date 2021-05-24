@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TournamentTree
 {
-    class DoubleKO : Component
+    class DoubleElimination : Component, ITournamentTree
     {
         public IList<Player> Winners { get; set; }
 
@@ -17,17 +17,17 @@ namespace TournamentTree
 
         public TournamentLog _log = new TournamentLog();
 
-        public DoubleKO(List<Player> players)
+        public DoubleElimination(List<Player> players)
         {
             Winners = players;
-            Console.WriteLine(CreateWinningTree());
+            Console.WriteLine(CreateTree());
             FirstTree = false;
         }
 
         /// <summary>
         /// startet Doppel Ko System mit dem Winning Bracket
         /// </summary>
-        public void StartWinnerTreeGenerator()
+        public void StartTreeGenerator()
         {
             Console.WriteLine("Elimination starts!");
             int round = 1;
@@ -98,7 +98,7 @@ namespace TournamentTree
                 Console.Clear();
                 if (Winners.Count > 1)
                 {
-                    Console.WriteLine(CreateWinningTree());
+                    Console.WriteLine(CreateTree());
                 }
             }
 
@@ -211,7 +211,7 @@ namespace TournamentTree
                 }
             }
 
-            RemoveDoubleLosingPlayers(doubleLosers);
+            EliminateLosingPlayers(doubleLosers);
             TournamentDoubleKoLog.LoserRounds.Add(loserRound);
 
             // Für 16 Spieler muss an der Stelle nochmals Loser Bracket gespielt werden und dann erst wieder Winner
@@ -227,7 +227,7 @@ namespace TournamentTree
         /// Nachdem ein Loser nochmal verliert scheidet er aus dem Turnier aus
         /// </summary>
         /// <param name="losers"></param>
-        private void RemoveDoubleLosingPlayers(List<Player> losers)
+        public void EliminateLosingPlayers(List<Player> losers)
         {
             foreach (Player loser in losers)
             {
@@ -328,7 +328,7 @@ namespace TournamentTree
         /// Baut das Winning Bracket auf und zeigt es an
         /// </summary>
         /// <returns></returns>
-        private string CreateWinningTree()
+        public string CreateTree()
         {
             string showTree = "Winning Bracket\n";
             showTree += "------------------------------------------------------\n\n";
