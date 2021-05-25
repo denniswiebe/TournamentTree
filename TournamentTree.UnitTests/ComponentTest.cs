@@ -58,14 +58,22 @@ namespace TournamentTree.UnitTests
                 matchOne,
                 matchTwo,
                 matchThree,
-                matchFour
+                matchFour,
+                matchFive,
+                matchSix,
+                matchSeven,
+                matchEight
             };
             IList<Match> allMatchesOriginalOrder = new List<Match>
             {
                 matchOne,
                 matchTwo,
                 matchThree,
-                matchFour
+                matchFour,
+                matchFive,
+                matchSix,
+                matchSeven,
+                matchEight
             };
 
             GroupPhase groupPhase = new GroupPhase(allPlayers);
