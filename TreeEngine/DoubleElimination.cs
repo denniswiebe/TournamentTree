@@ -90,6 +90,9 @@ namespace TournamentTree
                 }
 
                 MoveLosingPlayers(losers);
+                Console.Clear();
+                Console.WriteLine(CreateTree(Losers, "Losing Bracket"));
+                PlayLoserBracket();
 
                 round++;
                 TournamentDoubleKoLog.WinnerRounds.Add(winnerRound);
@@ -122,7 +125,7 @@ namespace TournamentTree
         /// Verschiebt die Spieler vom Winning Bracket in das Loser Bracket
         /// </summary>
         /// <param name="losers"></param>
-        private void MoveLosingPlayers(List<Player> losers)
+        public void MoveLosingPlayers(List<Player> losers)
         {
             // Bei der ersten Loser Runde werden einfach alle Spieler in eine Liste getan
             if (FirstLosers)
@@ -144,11 +147,7 @@ namespace TournamentTree
                     Losers.Insert(counterIndex, loser);
                     counterIndex += 2;
                 }
-            }
-            Console.Clear();
-            Console.WriteLine(CreateTree(Losers, "Losing Bracket"));
-
-            PlayLoserBracket();
+            }            
         }
 
         /// <summary>
