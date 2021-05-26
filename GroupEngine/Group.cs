@@ -14,11 +14,12 @@ namespace TournamentTree
         public IList<Player> Players { get; set; }
         public int GroupId { get; set; }
 
+        public Group(int id) : this(id, new List<Player>()) { }
 
-        public Group(int id)
+        public Group(int id, List<Player> players)
         {
-            Players = new List<Player>();
             GroupId = id;
+            Players = players;
         }
 
         public void AddPlayer(Player player)
