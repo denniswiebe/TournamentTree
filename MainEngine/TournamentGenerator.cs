@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace TournamentTree
 {
@@ -56,7 +55,7 @@ namespace TournamentTree
             // Überprüfen, ob die Spieleranzahl eine Potenz von zwei ist und Setzen der Variable
             // WithGroupPhase auf den gegenteiligen Wert. Ist die Spieleranzahl keine Potenz von zwei,
             // dann muss zwingend mit Gruppe gespielt werden, da ein Baum sonst nicht generiert werden kann.
-            var amountOfPlayersIsPowerOfTwo = CheckIfAmountOfPlayersIsPowerOfTwo();
+            var amountOfPlayersIsPowerOfTwo = CheckIfAmountOfPlayersIsPowerOfTwo(AmountOfPlayers);
             WithGroupPhase = !amountOfPlayersIsPowerOfTwo;
 
             // Nur wenn die Spieleranzahl eine Potenz von zwei ist, sollte die Frage kommen, ob mit oder ohne Gruppen gespielt werden soll.
@@ -138,9 +137,9 @@ namespace TournamentTree
         /// einen Binärstring gewandelt und in diesem werden alle 1 gezählt.
         /// </summary>
         /// <returns>true, wenn Spieleranzahl eine Potenz von 2 ist, ansonsten false.</returns>
-        public bool CheckIfAmountOfPlayersIsPowerOfTwo()
+        public bool CheckIfAmountOfPlayersIsPowerOfTwo(int amountOfPlayer)
         {
-            var playersCountBinary = Convert.ToString(AmountOfPlayers, 2);
+            var playersCountBinary = Convert.ToString(amountOfPlayer, 2);
             var count = playersCountBinary.Count(u => u == '1');
             var isPowerOfTwo = count == 1;
 
@@ -165,7 +164,7 @@ namespace TournamentTree
                     var player = new Player(name, idCounter);
                     AllPlayers.Add(player);
                     idCounter++;
-                }
+                }               
                 name = Console.ReadLine();
 
                 // Spieler hinzufügen bis genügend da sind und Stop eingegeben wurde
@@ -176,7 +175,7 @@ namespace TournamentTree
                 }     
             }
 
-            if (!CheckIfAmountOfPlayersIsPowerOfTwo())
+            if (!CheckIfAmountOfPlayersIsPowerOfTwo(AmountOfPlayers))
             {
                 CreateWildCards();
             }

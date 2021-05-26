@@ -5,23 +5,14 @@ using System.Text;
 
 namespace TournamentTree
 {
-    class ChooseHelper
+    class ChooseHelper : TournamentGenerator
     {
 
-        public int AmountOfPlayers { get; set; }
+        public new int AmountOfPlayers { get; set; }
 
         public ChooseHelper(int amountOfPlayers)
         {
             AmountOfPlayers = amountOfPlayers;
-        }
-
-        private bool CheckIfAmountOfPlayersIsPowerOfTwo()
-        {
-            var playersCountBinary = Convert.ToString(AmountOfPlayers, 2);
-            var count = playersCountBinary.Count(u => u == '1');
-            var isPowerOfTwo = count == 1;
-
-            return isPowerOfTwo;
         }
 
         public string Help()
@@ -31,7 +22,7 @@ namespace TournamentTree
             {
                 help = "The amount of Players are " + AmountOfPlayers + ", which means you need to add more Players";
             }
-            else if (CheckIfAmountOfPlayersIsPowerOfTwo() && AmountOfPlayers >= 2)
+            else if (CheckIfAmountOfPlayersIsPowerOfTwo(AmountOfPlayers) && AmountOfPlayers >= 2)
             {
                 help = "The amount of Players are " + AmountOfPlayers + ", which means you can choose between Groupphase or without.";
             }
