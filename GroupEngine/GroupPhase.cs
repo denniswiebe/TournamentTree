@@ -25,10 +25,12 @@ namespace TournamentTree
             Giant = 16,
         }
 
-        public GroupPhase(List<Player> players)
+        public GroupPhase(List<Player> players) : this(players, new List<Group>()) { }
+
+        public GroupPhase(List<Player> players, List<Group> groups)
         {
-            Groups = new List<Group>();
             Players = players;
+            Groups = groups;
         }
 
         /// <summary>
