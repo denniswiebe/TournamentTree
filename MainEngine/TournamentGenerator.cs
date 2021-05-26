@@ -157,26 +157,10 @@ namespace TournamentTree
             Console.WriteLine("Enter help or game for Tournament Suggestion.");
             var name = Console.ReadLine();
             int idCounter = 1;
+
             while (!String.Equals(name, "STOP", StringComparison.OrdinalIgnoreCase))
             {
-                ChooseHelper helper = new ChooseHelper(AmountOfPlayers);
-                if (String.Equals(name, "help", StringComparison.OrdinalIgnoreCase))
-                {
-                    Console.WriteLine(helper.Help());
-                }
-                else if (String.Equals(name, "game", StringComparison.OrdinalIgnoreCase))
-                {
-                    Console.WriteLine(helper.Suggestion());
-                }
-                else if (String.IsNullOrWhiteSpace(name))
-                {
-                    Console.WriteLine("Player must have at least one Character!");
-                }
-                else if (PlayerAlreadyExists(name))
-                {
-                    Console.WriteLine("Player Name Already Exists!");
-                }
-                else
+                if (ValidateInputOfPlayerName(name))
                 {
                     var player = new Player(name, idCounter);
                     AllPlayers.Add(player);
@@ -194,30 +178,63 @@ namespace TournamentTree
 
             if (!CheckIfAmountOfPlayersIsPowerOfTwo())
             {
-                Console.WriteLine("You can not create an instant Tournament tree because " + AmountOfPlayers + " is not a Power of Two");
-                Console.WriteLine("Do you wish to Fill up with Wildcards? (Open Spots which you always win against) Y/N");
-                Console.WriteLine("Warning! You can not play a Group Phase with Wildcards!");
-                if (Console.ReadKey().Key == ConsoleKey.Y)
-                {
-                    WithWildCards = true;
-                    int checkAllPowerOfTwo = 4;
-                    int temp = AmountOfPlayers - checkAllPowerOfTwo;
-                    while (temp > 0)
-                    {
-                        checkAllPowerOfTwo *= 2;
-                        temp = AmountOfPlayers - checkAllPowerOfTwo;
-                    }
-                    int amountOfWildcards = Math.Abs(temp);
-                    for (int i = 0; i < amountOfWildcards; i++)
-                    {
-                        Player wildCard = new Player(true);
-                        AllPlayers.Add(wildCard);
-                    }
-                }
+                CreateWildCards();
             }
 
             Console.Clear();
             Console.WriteLine("All Players created!");
+        }
+
+        private void CreateWildCards()
+        {
+            Console.WriteLine("You can not create an instant Tournament tree because " + AmountOfPlayers + " is not a Power of Two");
+            Console.WriteLine("Do you wish to Fill up with Wildcards? (Open Spots which you always win against) Y/N");
+            Console.WriteLine("Warning! You can not play a Group Phase with Wildcards!");
+            if (Console.ReadKey().Key == ConsoleKey.Y)
+            {
+                WithWildCards = true;
+                int checkAllPowerOfTwo = 4;
+                int temp = AmountOfPlayers - checkAllPowerOfTwo;
+                while (temp > 0)
+                {
+                    checkAllPowerOfTwo *= 2;
+                    temp = AmountOfPlayers - checkAllPowerOfTwo;
+                }
+                int amountOfWildcards = Math.Abs(temp);
+                for (int i = 0; i < amountOfWildcards; i++)
+                {
+                    Player wildCard = new Player(true);
+                    AllPlayers.Add(wildCard);
+                }
+            }
+        } 
+
+        private bool ValidateInputOfPlayerName(string inputPlayerName)
+        {
+            bool correctPlayerInput = true;
+            ChooseHelper helper = new ChooseHelper(AmountOfPlayers);
+            if (String.Equals(inputPlayerName, "help", StringComparison.OrdinalIgnoreCase))
+            {
+                Console.WriteLine(helper.Help());
+                correctPlayerInput = false;
+            }
+            else if (String.Equals(inputPlayerName, "game", StringComparison.OrdinalIgnoreCase))
+            {
+                Console.WriteLine(helper.Suggestion());
+                correctPlayerInput = false;
+            }
+            else if (String.IsNullOrWhiteSpace(inputPlayerName))
+            {
+                Console.WriteLine("Player must have at least one Character!");
+                correctPlayerInput = false;
+            }
+            else if (PlayerAlreadyExists(inputPlayerName))
+            {
+                Console.WriteLine("Player Name Already Exists!");
+                correctPlayerInput = false;
+            }
+
+            return correctPlayerInput;
         }
 
         private bool PlayerAlreadyExists(string playerName)
