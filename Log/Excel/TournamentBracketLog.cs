@@ -9,17 +9,17 @@ using System.Text;
 
 namespace TournamentTree
 {
-    public static class TournamentBracketLog
+    public class TournamentBracketLog : IExcelExport
     {
-        private static int startPosition = 3;
-        private static int? nextStartposition = null;
+        private int startPosition = 3;
+        private int? nextStartposition = null;
 
         public static List<TournamentBracketLogRound> Rounds = new List<TournamentBracketLogRound>();
 
         /// <summary>
         /// Diese Methode erstellt aus den Turnierdaten eine Excel-Datei
         /// </summary>
-        public static void GenerateBracketExcel(SpreadsheetDocument document, SheetData sheetData, WorksheetPart worksheetPart)
+        public void Export(SpreadsheetDocument document, SheetData sheetData, WorksheetPart worksheetPart)
         {
             int rowsToCreate = RowsCounter.CalculateRowsToCreate(Rounds);
             RowsCreator.CreateRows(sheetData, rowsToCreate);
@@ -29,7 +29,7 @@ namespace TournamentTree
             document.WorkbookPart.Workbook.Save();
         }
 
-        private static void EvaluateRowData(WorksheetPart worksheetPart)
+        private void EvaluateRowData(WorksheetPart worksheetPart)
         {
             // Nun jede Runde der KO-Runde durchgehen
             for (int i = 0; i <= Rounds.Count; i++)
@@ -40,7 +40,7 @@ namespace TournamentTree
             }
         }
 
-        private static void WriteRoundName(Worksheet worksheet, int i)
+        private void WriteRoundName(Worksheet worksheet, int i)
         {
             string text = $"Round {i + 1}";
             if (i == Rounds.Count)
@@ -48,7 +48,7 @@ namespace TournamentTree
             CellWriter.WriteValueInCell(worksheet, CellValues.String, text, i + 1, 2);
         }
 
-        private static void WriteMatchOrWinner(WorksheetPart worksheetPart, int i)
+        private void WriteMatchOrWinner(WorksheetPart worksheetPart, int i)
         {
             if (i < Rounds.Count)
                 EvaluateMatchData(worksheetPart, i);
@@ -56,7 +56,7 @@ namespace TournamentTree
                 EvaluateWinner(worksheetPart, i);
         }
 
-        private static void RemoveNextStartPositionValue()
+        private void RemoveNextStartPositionValue()
         {
             if (nextStartposition.HasValue)
             {
@@ -68,7 +68,7 @@ namespace TournamentTree
             }
         }
 
-        private static void EvaluateMatchData(WorksheetPart worksheetPart, int i)
+        private void EvaluateMatchData(WorksheetPart worksheetPart, int i)
         {
             // Jedes Spiel jeder Runde durchgehen
             foreach (var match in Rounds[i].Matches)
@@ -91,7 +91,7 @@ namespace TournamentTree
             }
         }
 
-        private static void EvaluateWinner(WorksheetPart worksheetPart, int i)
+        private void EvaluateWinner(WorksheetPart worksheetPart, int i)
         {
             // Gewinner eintragen
             var match = Rounds[i - 1].Matches[0];

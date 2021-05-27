@@ -78,7 +78,9 @@ namespace TournamentTree.UnitTests
                 }
 
                 // Den eigentlichen Export durchführen
-                TournamentGroupLog.GenerateGroupExcel(document, sheetdata, worksheetPart);
+                var excelExportFactory = new ExcelExportFactory();
+                var groupLog = excelExportFactory.CreateExcelExport(ExcelExportFactory.ExcelExportType.Groups);
+                groupLog.Export(document, sheetdata, worksheetPart);
 
                 // Daten, die aus der Datei benötigt werden, sodass die Tests durchgeführt werden können
                 var playerCell = CellFinder.GetCell(worksheetPart.Worksheet, 10, 2);
@@ -142,7 +144,9 @@ namespace TournamentTree.UnitTests
                 sheets.Append(sheet2);
 
                 // Den eigentlichen Export durchführen
-                TournamentBracketLog.GenerateBracketExcel(document, sheetdata, worksheetPart);
+                var excelExportFactory = new ExcelExportFactory();
+                var bracketLog = excelExportFactory.CreateExcelExport(ExcelExportFactory.ExcelExportType.Bracket);
+                bracketLog.Export(document, sheetdata, worksheetPart);
 
                 // Zellen aus dem Dokument laden, welche angeschaut werden müssen
                 var firstUsedCell = CellFinder.GetCell(worksheetPart.Worksheet, 1, 2);

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace TournamentTree
 {
-    public static class TournamentGroupLog
+    public class TournamentGroupLog : IExcelExport
     {
         public static List<TournamentGroupLogMatch> AllMatches { get; } = new List<TournamentGroupLogMatch>();
         public static Dictionary<int, List<Player>> Groups { get; } = new Dictionary<int, List<Player>>();
@@ -17,7 +17,7 @@ namespace TournamentTree
             AllMatches.Add(match);
         }
 
-        public static void GenerateGroupExcel(SpreadsheetDocument document, SheetData sheetData, WorksheetPart worksheetPart)
+        public void Export(SpreadsheetDocument document, SheetData sheetData, WorksheetPart worksheetPart)
         {
             if (Groups.Count == 0)
                 return;

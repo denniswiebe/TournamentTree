@@ -53,12 +53,17 @@ namespace TournamentTree
                 };
                 sheets.Append(sheet2);
 
+                var excelExportFactory = new ExcelExportFactory();
+                var groupLog = excelExportFactory.CreateExcelExport(ExcelExportFactory.ExcelExportType.Groups);
+                var bracketLog = excelExportFactory.CreateExcelExport(ExcelExportFactory.ExcelExportType.Bracket);
+                var doubleKoLog = excelExportFactory.CreateExcelExport(ExcelExportFactory.ExcelExportType.DoubleKo);
+
                 if (TournamentGroupLog.Groups.Count > 0)
-                    TournamentGroupLog.GenerateGroupExcel(document, sheetData1, worksheetPart1);
+                    groupLog.Export(document, sheetData1, worksheetPart1);
                 if (!doubleKo)
-                    TournamentBracketLog.GenerateBracketExcel(document, sheetData2, worksheetPart2);
+                    bracketLog.Export(document, sheetData2, worksheetPart2);
                 else
-                    TournamentDoubleKoLog.GenerateBracketExcel(document, sheetData2, worksheetPart2);
+                    doubleKoLog.Export(document, sheetData2, worksheetPart2);
                 document.Close();
             }
         }

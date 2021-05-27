@@ -27,3 +27,19 @@ V:\Dokumente\GitHub\TournamentTree\obj\Debug\netcoreapp3.1\TournamentTree.csproj
 V:\Dokumente\GitHub\TournamentTree\obj\Debug\netcoreapp3.1\TournamentTree.dll
 V:\Dokumente\GitHub\TournamentTree\obj\Debug\netcoreapp3.1\TournamentTree.pdb
 V:\Dokumente\GitHub\TournamentTree\obj\Debug\netcoreapp3.1\TournamentTree.genruntimeconfig.cache
+C:\Users\enzoc\Documents\Visual Studio 2019\Projects\TournamentTree\obj\Debug\netcoreapp3.1\TournamentTree.csprojAssemblyReference.cache
+C:\Users\enzoc\Documents\Visual Studio 2019\Projects\TournamentTree\obj\Debug\netcoreapp3.1\TournamentTree.AssemblyInfoInputs.cache
+C:\Users\enzoc\Documents\Visual Studio 2019\Projects\TournamentTree\obj\Debug\netcoreapp3.1\TournamentTree.AssemblyInfo.cs
+C:\Users\enzoc\Documents\Visual Studio 2019\Projects\TournamentTree\obj\Debug\netcoreapp3.1\TournamentTree.csproj.CoreCompileInputs.cache
+C:\Users\enzoc\Documents\Visual Studio 2019\Projects\TournamentTree\obj\Debug\netcoreapp3.1\TournamentTree.dll
+C:\Users\enzoc\Documents\Visual Studio 2019\Projects\TournamentTree\obj\Debug\netcoreapp3.1\TournamentTree.pdb
+C:\Users\enzoc\Documents\Visual Studio 2019\Projects\TournamentTree\bin\Debug\netcoreapp3.1\TournamentTree.exe
+C:\Users\enzoc\Documents\Visual Studio 2019\Projects\TournamentTree\bin\Debug\netcoreapp3.1\TournamentTree.deps.json
+C:\Users\enzoc\Documents\Visual Studio 2019\Projects\TournamentTree\bin\Debug\netcoreapp3.1\TournamentTree.runtimeconfig.json
+C:\Users\enzoc\Documents\Visual Studio 2019\Projects\TournamentTree\bin\Debug\netcoreapp3.1\TournamentTree.runtimeconfig.dev.json
+C:\Users\enzoc\Documents\Visual Studio 2019\Projects\TournamentTree\bin\Debug\netcoreapp3.1\TournamentTree.dll
+C:\Users\enzoc\Documents\Visual Studio 2019\Projects\TournamentTree\bin\Debug\netcoreapp3.1\TournamentTree.pdb
+C:\Users\enzoc\Documents\Visual Studio 2019\Projects\TournamentTree\bin\Debug\netcoreapp3.1\DocumentFormat.OpenXml.dll
+C:\Users\enzoc\Documents\Visual Studio 2019\Projects\TournamentTree\bin\Debug\netcoreapp3.1\System.IO.Packaging.dll
+C:\Users\enzoc\Documents\Visual Studio 2019\Projects\TournamentTree\obj\Debug\netcoreapp3.1\TournamentTree.csproj.CopyComplete
+C:\Users\enzoc\Documents\Visual Studio 2019\Projects\TournamentTree\obj\Debug\netcoreapp3.1\TournamentTree.genruntimeconfig.cache

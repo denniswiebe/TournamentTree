@@ -1,21 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "V:\\Dokumente\\GitHub\\TournamentTree\\TournamentTree.csproj": {}
+    "C:\\Users\\enzoc\\Documents\\Visual Studio 2019\\Projects\\TournamentTree\\TournamentTree.csproj": {}
   },
   "projects": {
-    "V:\\Dokumente\\GitHub\\TournamentTree\\TournamentTree.csproj": {
+    "C:\\Users\\enzoc\\Documents\\Visual Studio 2019\\Projects\\TournamentTree\\TournamentTree.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "V:\\Dokumente\\GitHub\\TournamentTree\\TournamentTree.csproj",
+        "projectUniqueName": "C:\\Users\\enzoc\\Documents\\Visual Studio 2019\\Projects\\TournamentTree\\TournamentTree.csproj",
         "projectName": "TournamentTree",
-        "projectPath": "V:\\Dokumente\\GitHub\\TournamentTree\\TournamentTree.csproj",
+        "projectPath": "C:\\Users\\enzoc\\Documents\\Visual Studio 2019\\Projects\\TournamentTree\\TournamentTree.csproj",
         "packagesPath": "C:\\Users\\enzoc\\.nuget\\packages\\",
-        "outputPath": "V:\\Dokumente\\GitHub\\TournamentTree\\obj\\",
+        "outputPath": "C:\\Users\\enzoc\\Documents\\Visual Studio 2019\\Projects\\TournamentTree\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
         "configFilePaths": [
-          "V:\\enzoc\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\enzoc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -26,7 +30,6 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -38,7 +41,6 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "DocumentFormat.OpenXml": {
               "target": "Package",
@@ -60,7 +62,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

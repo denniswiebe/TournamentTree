@@ -7,13 +7,13 @@ using System.Text;
 
 namespace TournamentTree
 {
-    public static class TournamentDoubleKoLog
+    public class TournamentDoubleKoLog : IExcelExport
     {
         public static List<TournamentBracketLogRound> WinnerRounds = new List<TournamentBracketLogRound>();
         public static List<TournamentBracketLogRound> LoserRounds = new List<TournamentBracketLogRound>();
         public static List<TournamentBracketLogRoundMatch> FinalMatches = new List<TournamentBracketLogRoundMatch>();
 
-        public static void GenerateBracketExcel(SpreadsheetDocument document, SheetData sheetData, WorksheetPart worksheetPart)
+        public void Export(SpreadsheetDocument document, SheetData sheetData, WorksheetPart worksheetPart)
         {
             RowsCreator.CreateRows(sheetData, 100);
 
