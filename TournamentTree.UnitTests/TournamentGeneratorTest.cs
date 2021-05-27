@@ -8,37 +8,21 @@ namespace TournamentTree.UnitTests
         [TestMethod]
         public void AmountOfPlayersIsPowerOfTwo()
         {
-            TournamentGenerator generator = new TournamentGenerator();
-            var playerOne = new Player("PlayerOne", 1);
-            var playerTwo = new Player("PlayerTwo", 2);
-            var playerThree = new Player("PlayerThree", 3);
-            var playerFour = new Player("PlayerFour", 4);
-
-            generator.AllPlayers.Add(playerOne);
-            generator.AllPlayers.Add(playerTwo);
-            generator.AllPlayers.Add(playerThree);
-            generator.AllPlayers.Add(playerFour);
+            FakeObjects.FakeTournamentGenerator generator = new FakeObjects.FakeTournamentGenerator();
 
             // Test, ob Spieleranzahl eine Potenz von 2 ist
             // Müsste TRUE sein, da 4 = 2²
-            Assert.IsTrue(generator.CheckIfAmountOfPlayersIsPowerOfTwo(generator.AmountOfPlayers));
+            Assert.IsTrue(generator.CheckIfAmountOfPlayersIsPowerOfTwo(generator.FourPlayers.Count));
         }
 
         [TestMethod]
         public void AmountOfPlayersIsNotPowerOfTwo()
         {
-            TournamentGenerator generator = new TournamentGenerator();
-            var playerOne = new Player("PlayerOne", 1);
-            var playerTwo = new Player("PlayerTwo", 2);
-            var playerThree = new Player("PlayerThree", 3);
+            FakeObjects.FakeTournamentGenerator generator = new FakeObjects.FakeTournamentGenerator();
 
-            generator.AllPlayers.Add(playerOne);
-            generator.AllPlayers.Add(playerTwo);
-            generator.AllPlayers.Add(playerThree);
-            
             // Test, ob Spieleranzahl eine Potenz von 2 ist
             // FALSE, da 3 keine Potenz von 2 ist
-            Assert.IsFalse(generator.CheckIfAmountOfPlayersIsPowerOfTwo(generator.AmountOfPlayers));
+            Assert.IsFalse(generator.CheckIfAmountOfPlayersIsPowerOfTwo(generator.ThreePlayers.Count));
         }
     }
 }
