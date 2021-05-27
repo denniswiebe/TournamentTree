@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TournamentTree
 {
-    public class DoubleElimination : Component, IElimination
+    public class DoubleElimination : Component, ITournamentTree
     {
         public IList<Player> Winners { get; set; }
 
@@ -20,14 +20,14 @@ namespace TournamentTree
         public DoubleElimination(List<Player> players)
         {
             Winners = players;
-            Console.WriteLine(CreateTree(Winners, "Winning Bracket"));
         }
 
         /// <summary>
         /// startet Doppel Ko System mit dem Winning Bracket
         /// </summary>
-        public void StartElimination()
+        public void StartTreeGenerator()
         {
+            Console.WriteLine(CreateTree(Winners, "Winning Bracket"));
             Console.WriteLine("Elimination starts!");
             int round = 1;
             while (Winners.Count > 1)

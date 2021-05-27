@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TournamentTree
 {
-    public class SingleElimination : Component, IElimination
+    public class SingleElimination : Component, ITournamentTree
     {
         public IList<Player> Players { get; set; }
 
@@ -16,11 +16,11 @@ namespace TournamentTree
         public SingleElimination(List<Player> players)
         {
             Players = players;
-            Console.WriteLine(CreateTree(Players));
         }
 
-        public void StartElimination()
+        public void StartTreeGenerator()
         {
+            Console.WriteLine(CreateTree(Players));
             Console.WriteLine("Elimination starts!");
             int round = 1;
             while (Players.Count != 1)
