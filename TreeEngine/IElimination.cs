@@ -4,10 +4,10 @@ using System.Text;
 
 namespace TournamentTree
 {
-    interface ITournamentTree
+    interface IElimination
     {
 
-        void StartTreeGenerator();
+        void StartElimination();
 
         void EliminateLosingPlayers(List<Player> losers);
 
