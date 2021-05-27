@@ -56,6 +56,7 @@ namespace TournamentTree.UnitTests
                 playerD
             };
             SingleElimination singleElimination = new SingleElimination(allPlayers);
+            singleElimination.FirstTree = false;
 
             string showTree = "Bracket";
             showTree += "\n------------------------------------------------------\n\n";

@@ -21,7 +21,7 @@ namespace TournamentTree.UnitTests
 
             // Test, ob Spieleranzahl eine Potenz von 2 ist
             // Müsste TRUE sein, da 4 = 2²
-            Assert.IsTrue(generator.CheckIfAmountOfPlayersIsPowerOfTwo());
+            Assert.IsTrue(generator.CheckIfAmountOfPlayersIsPowerOfTwo(generator.AmountOfPlayers));
         }
 
         [TestMethod]
@@ -38,7 +38,7 @@ namespace TournamentTree.UnitTests
             
             // Test, ob Spieleranzahl eine Potenz von 2 ist
             // FALSE, da 3 keine Potenz von 2 ist
-            Assert.IsFalse(generator.CheckIfAmountOfPlayersIsPowerOfTwo());
+            Assert.IsFalse(generator.CheckIfAmountOfPlayersIsPowerOfTwo(generator.AmountOfPlayers));
         }
     }
 }
