@@ -11,7 +11,7 @@ namespace TournamentTree
 
         public bool FirstTree { get; set; } = true;
 
-        public TournamentLog _log = new TournamentLog();
+        public TournamentLog log = new TournamentLog();
 
         public SingleElimination(List<Player> players)
         {
@@ -86,21 +86,8 @@ namespace TournamentTree
             }
             Console.Clear();
             Console.WriteLine("Winner of the Tournament: " + Players[0].ToString());
-            _log.AddEntry("Winner: " + Players[0].ToString());
-
-            //LogFile vom Turnier erstellen ?
-            Console.WriteLine("Do you want a Log of the Tournament? Y/N");
-            if (Console.ReadKey().Key == ConsoleKey.Y)
-            {
-                _log.CreateLog();
-            }
-
-            Console.WriteLine();
-            Console.WriteLine("Do you want to create an Excel file of the tournament? Y/N");
-            if (Console.ReadKey().Key == ConsoleKey.Y)
-            {
-                ExcelExporter.ExportToExcel();
-            }
+            log.AddEntry("Winner: " + Players[0].ToString());
+            CreateLogOfTournament(log);
         }
 
         public string CreateTree(IList<Player> players, string winnerOrLoserBracket = "Bracket")
@@ -132,7 +119,7 @@ namespace TournamentTree
             }
             showTree += "------------------------------------------------------\n";
 
-            _log.AddEntry(showTree);
+            log.AddEntry(showTree);
             return showTree;
         }
 

@@ -15,7 +15,7 @@ namespace TournamentTree
 
         public bool FirstLosers { get; set; } = true;
 
-        public TournamentLog _log = new TournamentLog();
+        public TournamentLog log = new TournamentLog();
 
         public DoubleElimination(List<Player> players)
         {
@@ -106,19 +106,7 @@ namespace TournamentTree
 
             Console.Clear();
             PlayFinale(Winners[0], Losers[0]);
-            //LogFile vom Turnier erstellen ?
-            Console.WriteLine("\nDo you want a Log of the Tournament? Y/N");
-            if (Console.ReadKey().Key == ConsoleKey.Y)
-            {
-                _log.CreateLog();
-            }
-
-            Console.WriteLine();
-            Console.WriteLine("Do you want to create an Excel file of the tournament? Y/N");
-            if (Console.ReadKey().Key == ConsoleKey.Y)
-            {
-                ExcelExporter.ExportToExcel(true);
-            }
+            CreateLogOfTournament(log, true);
         }
 
         /// <summary>
@@ -253,7 +241,7 @@ namespace TournamentTree
                 {
                     Console.WriteLine("You Choose: " + winner.ToString());
                     Console.WriteLine("Winner of the Tournament: " + winner.ToString());
-                    _log.AddEntry("Winner: " + winner.ToString());
+                    log.AddEntry("Winner: " + winner.ToString());
                     var match = new TournamentBracketLogRoundMatch(winner.ToString(), loser.ToString(), whoWonInput == winner.PlayerName || whoWonInput == winner.PlayerID.ToString());
                     TournamentDoubleKoLog.FinalMatches.Add(match);
                     break;
@@ -273,14 +261,14 @@ namespace TournamentTree
                         {
                             Console.WriteLine("You Choose: " + winner.ToString());
                             Console.WriteLine("Winner of the Tournament: " + winner.ToString());
-                            _log.AddEntry("Winner: " + winner.ToString());
+                            log.AddEntry("Winner: " + winner.ToString());
                             correctPlayerInput = true;
                         }
                         else if (WhoWonTournament == loser.PlayerName || WhoWonTournament == loser.PlayerID.ToString())
                         {
                             Console.WriteLine("You Choose: " + loser.ToString());
                             Console.WriteLine("Winner of the Tournament: " + loser.ToString());
-                            _log.AddEntry("Winner: " + loser.ToString());
+                            log.AddEntry("Winner: " + loser.ToString());
                             correctPlayerInput = true;
                         }
                         if (correctPlayerInput)
@@ -318,7 +306,7 @@ namespace TournamentTree
 
             showFinals += "------------------------------------------------------\n\n";
 
-            _log.AddEntry(showFinals);
+            log.AddEntry(showFinals);
             return showFinals;
         }
 
@@ -355,7 +343,7 @@ namespace TournamentTree
             }
             showTree += "------------------------------------------------------\n";
 
-            _log.AddEntry(showTree);
+            log.AddEntry(showTree);
             return showTree;
         }
 

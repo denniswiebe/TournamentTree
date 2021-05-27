@@ -47,5 +47,21 @@ namespace TournamentTree
             }
             return check;
         }
+
+        public void CreateLogOfTournament(TournamentLog log, bool doubleKO = false)
+        {
+            Console.WriteLine("\nDo you want a Log of the Tournament? Y/N");
+            if (Console.ReadKey().Key == ConsoleKey.Y)
+            {
+                log.CreateLog();
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Do you want to create an Excel file of the tournament? Y/N");
+            if (Console.ReadKey().Key == ConsoleKey.Y)
+            {
+                ExcelExporter.ExportToExcel(doubleKO);
+            }
+        }
     }
 }
