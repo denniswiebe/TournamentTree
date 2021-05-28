@@ -11,51 +11,20 @@ namespace TournamentTree.UnitTests
         [TestMethod]
         public void EliminateLosingPlayerTest()
         {
-            Player playerA = new Player("A", 1);
-            Player playerB = new Player("B", 2);
-            Player playerC = new Player("C", 3);
-            Player playerD = new Player("D", 4);
-            List<Player> allPlayers = new List<Player>()
-            {
-                playerA,
-                playerB,
-                playerC,
-                playerD
-            };
-
-            SingleElimination singleElimination = new SingleElimination(allPlayers);
-            List<Player> loserPlayers = new List<Player>()
-            {
-                playerA,
-                playerC
-            };
-
-            singleElimination.EliminateLosingPlayers(loserPlayers);
-
-
+            FakeObjects.FakeSingleElimination singleElimination = new FakeObjects.FakeSingleElimination();
+            singleElimination.EliminateLosingPlayers(singleElimination.losers);
 
             Assert.IsTrue(singleElimination.Players.Count == 2);
-            Assert.IsTrue(singleElimination.Players.Contains(playerB));
-            Assert.IsTrue(singleElimination.Players.Contains(playerD));
-            Assert.IsTrue(!singleElimination.Players.Contains(playerA));
-            Assert.IsTrue(!singleElimination.Players.Contains(playerC));
+            Assert.IsTrue(singleElimination.Players.Contains(singleElimination.playerB));
+            Assert.IsTrue(singleElimination.Players.Contains(singleElimination.playerD));
+            Assert.IsTrue(!singleElimination.Players.Contains(singleElimination.playerA));
+            Assert.IsTrue(!singleElimination.Players.Contains(singleElimination.playerC));
         }
 
         [TestMethod]
         public void CreateTreeTest()
         {
-            Player playerA = new Player("A", 1);
-            Player playerB = new Player("B", 2);
-            Player playerC = new Player("C", 3);
-            Player playerD = new Player("D", 4);
-            List<Player> allPlayers = new List<Player>()
-            {
-                playerA,
-                playerB,
-                playerC,
-                playerD
-            };
-            SingleElimination singleElimination = new SingleElimination(allPlayers);
+            FakeObjects.FakeSingleElimination singleElimination = new FakeObjects.FakeSingleElimination();
             singleElimination.FirstTree = false;
 
             string showTree = "Bracket";
@@ -70,7 +39,7 @@ namespace TournamentTree.UnitTests
             showTree += "\n";
             showTree += "------------------------------------------------------\n";
 
-            Assert.AreEqual(showTree, singleElimination.CreateTree(allPlayers));
+            Assert.AreEqual(showTree, singleElimination.CreateTree(singleElimination.Players));
         }
     }
 }
