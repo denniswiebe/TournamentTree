@@ -22,6 +22,11 @@ namespace TournamentTree
             Winners = players;
         }
 
+        public DoubleElimination()
+        {
+
+        }
+
         /// <summary>
         /// startet Doppel Ko System mit dem Winning Bracket
         /// </summary>
