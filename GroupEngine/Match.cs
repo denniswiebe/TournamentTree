@@ -15,6 +15,11 @@ namespace TournamentTree
             PlayerTwo = playerTwo;
         }
 
+        public Match()
+        {
+
+        }
+
         public void PlayMatch()
         {
             Console.WriteLine("Match between: " + PlayerOne.PlayerName + " VS " + PlayerTwo.PlayerName);

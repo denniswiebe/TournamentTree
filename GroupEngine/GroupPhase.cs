@@ -33,6 +33,11 @@ namespace TournamentTree
             Groups = groups;
         }
 
+        public GroupPhase()
+        {
+
+        }
+
         /// <summary>
         /// Startmethode für das Spielen eines Turniers in Gruppen.
         /// </summary>

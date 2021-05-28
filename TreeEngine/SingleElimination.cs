@@ -18,6 +18,11 @@ namespace TournamentTree
             Players = players;
         }
 
+        public SingleElimination()
+        {
+
+        }
+
         public void StartElimination()
         {
             Console.WriteLine(CreateTree(Players));
