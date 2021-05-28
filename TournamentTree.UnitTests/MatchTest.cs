@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TournamentTree.Core;
 
 namespace TournamentTree.UnitTests
 {
@@ -12,7 +13,8 @@ namespace TournamentTree.UnitTests
             Player playerTwo = new Player("PlayerTwo", 2);
             Match match = new Match(playerOne, playerTwo);
 
-            match.ChangeHomeAndAway();
+            var matchFactory = new MatchFactory();
+            matchFactory.ChangeHomeAndAway(match);
 
             Assert.AreEqual(match.PlayerOne, playerTwo);
             Assert.AreEqual(match.PlayerTwo, playerOne);
@@ -25,10 +27,11 @@ namespace TournamentTree.UnitTests
             Player playerTwo = new Player("PlayerTwo", 2);
             Match match = new Match(playerOne, playerTwo);
 
-            bool checkedInputTrue = match.CheckInputOfMatch("4 2");
-            bool checkedInputFalse = match.CheckInputOfMatch("a 1");
-            bool checkedInputFalse2 = match.CheckInputOfMatch("12");
-            bool checkedInputFalse3 = match.CheckInputOfMatch("1 a");
+            var matchFactory = new MatchFactory();
+            bool checkedInputTrue = matchFactory.CheckInputOfMatch("4 2");
+            bool checkedInputFalse = matchFactory.CheckInputOfMatch("a 1");
+            bool checkedInputFalse2 = matchFactory.CheckInputOfMatch("12");
+            bool checkedInputFalse3 = matchFactory.CheckInputOfMatch("1 a");
 
             Assert.AreEqual(true, checkedInputTrue);
             Assert.AreEqual(false, checkedInputFalse);

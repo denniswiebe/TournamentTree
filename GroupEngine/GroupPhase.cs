@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using TournamentTree.Core;
 
 namespace TournamentTree
 {
@@ -203,9 +204,11 @@ namespace TournamentTree
             Console.Clear();
             CreateMatches();
             ShuffleMatches(AllMatches); // shuffle Matches to have more randomness
+            var matchFactory = new MatchFactory();
             foreach (Match match in AllMatches)
             {
-                match.PlayMatch();
+                
+                matchFactory.PlayMatch(match);
             }
 
             //wenn die Rückrunde gespielt wird, sollen die Matches nochmal gespielt werden
@@ -214,8 +217,8 @@ namespace TournamentTree
 
                 foreach (Match match in AllMatches)
                 {
-                    match.ChangeHomeAndAway();
-                    match.PlayMatch();
+                    matchFactory.ChangeHomeAndAway(match);
+                    matchFactory.PlayMatch(match);
                 }   
             }
         }

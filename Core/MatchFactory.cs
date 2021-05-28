@@ -2,37 +2,23 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TournamentTree
+namespace TournamentTree.Core
 {
-    public class Match
+    public class MatchFactory
     {
-        public Player PlayerOne { get; set; }
-        public Player PlayerTwo { get; set; }
-
-        public Match(Player playerOne, Player playerTwo)
+        public void PlayMatch(Match match)
         {
-            PlayerOne = playerOne;
-            PlayerTwo = playerTwo;
+            Console.WriteLine("Match between: " + match.PlayerOne.PlayerName + " VS " + match.PlayerTwo.PlayerName);
+            ValidateMatch(match);
         }
 
-        public Match()
-        {
-
-        }
-
-        public void PlayMatch()
-        {
-            Console.WriteLine("Match between: " + PlayerOne.PlayerName + " VS " + PlayerTwo.PlayerName);
-            ValidateMatch();
-        }
-
-        private void ValidateMatch()
+        private void ValidateMatch(Match match)
         {
             Console.WriteLine("What is the result of the Match? (Example: 2 3)");
             string input;
             do
             {
-                input = Console.ReadLine();        
+                input = Console.ReadLine();
             } while (!CheckInputOfMatch(input));
 
             string[] splitInput = input.Split(" ");
@@ -40,26 +26,26 @@ namespace TournamentTree
             int secondNumber = int.Parse(splitInput[1]);
             if (firstNumber > secondNumber)
             {
-                PlayerOne.Wins++;
+                match.PlayerOne.Wins++;
             }
             else if (secondNumber > firstNumber)
             {
-                PlayerTwo.Wins++;
+                match.PlayerTwo.Wins++;
             }
             else
             {
-                PlayerOne.Ties++;
-                PlayerTwo.Ties++;
+                match.PlayerOne.Ties++;
+                match.PlayerTwo.Ties++;
             }
 
             // add/ subtract goals to GoalDifference
-            PlayerOne.GoalDifference += firstNumber;
-            PlayerOne.GoalDifference -= secondNumber;
-            PlayerTwo.GoalDifference -= firstNumber;
-            PlayerTwo.GoalDifference += secondNumber;
+            match.PlayerOne.GoalDifference += firstNumber;
+            match.PlayerOne.GoalDifference -= secondNumber;
+            match.PlayerTwo.GoalDifference -= firstNumber;
+            match.PlayerTwo.GoalDifference += secondNumber;
 
             // Add as match for the Log Engine
-            TournamentGroupLog.AddMatch(TournamentGroupLogMatch.Create(PlayerOne.PlayerName, PlayerTwo.PlayerName, firstNumber, secondNumber));
+            TournamentGroupLog.AddMatch(TournamentGroupLogMatch.Create(match.PlayerOne.PlayerName, match.PlayerTwo.PlayerName, firstNumber, secondNumber));
         }
 
         public bool CheckInputOfMatch(string input)
@@ -88,11 +74,11 @@ namespace TournamentTree
             return true;
         }
 
-        public void ChangeHomeAndAway()
+        public void ChangeHomeAndAway(Match match)
         {
-            Player temp = PlayerOne;
-            PlayerOne = PlayerTwo;
-            PlayerTwo = temp;
+            Player temp = match.PlayerOne;
+            match.PlayerOne = match.PlayerTwo;
+            match.PlayerTwo = temp;
         }
     }
 }
