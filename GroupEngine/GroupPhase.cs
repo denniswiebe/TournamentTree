@@ -17,6 +17,8 @@ namespace TournamentTree
 
         public IList<Match> AllMatches { get; set; } = new List<Match>();
 
+        public GroupFactory _groupFactory = new GroupFactory();
+
         enum AmountOfGroups : int
         {
             One = 1,
@@ -143,7 +145,7 @@ namespace TournamentTree
                 {
                     if (counter < Players.Count)
                     {
-                        group.AddPlayer(Players[counter++]);
+                        _groupFactory.AddPlayer(group, Players[counter++]);
                     }
                     else
                     {
@@ -161,7 +163,7 @@ namespace TournamentTree
             Console.Clear();
             foreach (Group group in Groups)
             {
-                group.SortPlayers();
+                _groupFactory.SortPlayers(group);
                 Console.WriteLine("Group " + group.GroupId);
                 for (int i = 0; i < group.Players.Count; i++)
                 {
@@ -176,13 +178,13 @@ namespace TournamentTree
         /// </summary>
         private void LoadGroupsInLogEngine()
         {
-            foreach (Group g in Groups)
+            foreach (Group group in Groups)
             {
-                g.SortPlayers();
+                _groupFactory.SortPlayers(group);
                 var players = new List<Player>();
-                foreach (var player in g.Players)
+                foreach (var player in group.Players)
                     players.Add(player);
-                TournamentGroupLog.Groups.Add(g.GroupId, players);
+                TournamentGroupLog.Groups.Add(group.GroupId, players);
             }
         }
 
