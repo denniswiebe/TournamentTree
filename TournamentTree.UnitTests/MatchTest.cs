@@ -9,8 +9,8 @@ namespace TournamentTree.UnitTests
         [TestMethod]
         public void ChangeHomeAndAway()
         {
-            Player playerOne = new Player("PlayerOne", 1);
-            Player playerTwo = new Player("PlayerTwo", 2);
+            Player playerOne = new Player(new Name("PlayerOne"), new Identification(1));
+            Player playerTwo = new Player(new Name("PlayerTwo"), new Identification(2));
             Match match = new Match(playerOne, playerTwo);
 
             var matchFactory = new MatchFactory();
@@ -23,8 +23,8 @@ namespace TournamentTree.UnitTests
         [TestMethod]
         public void CheckInputOfMatchTest()
         {
-            Player playerOne = new Player("PlayerOne", 1);
-            Player playerTwo = new Player("PlayerTwo", 2);
+            Player playerOne = new Player(new Name("PlayerOne"), new Identification(1));
+            Player playerTwo = new Player(new Name("PlayerTwo"), new Identification(2));
             Match match = new Match(playerOne, playerTwo);
 
             var matchFactory = new MatchFactory();

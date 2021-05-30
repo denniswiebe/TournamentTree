@@ -7,9 +7,9 @@ namespace TournamentTree
 {
     public class Player
     {
-        public string PlayerName { get; set; }
+        public Name PlayerName { get; set; }
 
-        public int PlayerID { get; set; }
+        public Identification PlayerID { get; set; }
 
         public int Wins { get; set; }
 
@@ -23,7 +23,7 @@ namespace TournamentTree
 
         public bool IsWildCard { get; set; } = false;
 
-        public Player(string name, int id)
+        public Player(Name name, Identification id)
         {
             PlayerName = name;
             PlayerID = id;
@@ -32,8 +32,8 @@ namespace TournamentTree
         public Player(bool wildCard)
         {
             IsWildCard = wildCard;
-            PlayerName = "Freewin";
-            PlayerID = 0;
+            PlayerName = new Name("Freewin");
+            PlayerID = new Identification(0);
         }
 
         public override string ToString()

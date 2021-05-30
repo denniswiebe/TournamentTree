@@ -14,10 +14,10 @@ namespace TournamentTree.UnitTests.FakeObjects
 
         public FakeDoubleElimination()
         {
-            playerA = new Player("A", 1);
-            playerB = new Player("B", 2);
-            playerC = new Player("C", 3);
-            playerD = new Player("D", 4);
+            playerA = new Player(new Name("A"), new Identification(1));
+            playerB = new Player(new Name("B"), new Identification(2));
+            playerC = new Player(new Name("C"), new Identification(3));
+            playerD = new Player(new Name("D"), new Identification(4));
             Winners = new List<Player>
             {
                 playerA,

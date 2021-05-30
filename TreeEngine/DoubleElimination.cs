@@ -43,9 +43,9 @@ namespace TournamentTree
                 List<Player> losers = new List<Player>();
                 for (int i = 0; i < Winners.Count - 1; i += 2)
                 {
-                    if (Winners[i].PlayerID == 0 || Winners[i + 1].PlayerID == 0) // prüfen ob im Match eine Wildcard vorhanden ist
+                    if (Winners[i].PlayerID.Id == 0 || Winners[i + 1].PlayerID.Id == 0) // prüfen ob im Match eine Wildcard vorhanden ist
                     {
-                        if (Winners[i].PlayerID == 0)
+                        if (Winners[i].PlayerID.Id == 0)
                         {
                             losers.Add(Winners[i]);
                             winnerRound.AddMatch(Winners[i].ToString(), Winners[i + 1].ToString(), false);
@@ -64,13 +64,13 @@ namespace TournamentTree
                         while (!correctPlayerInput)
                         {
                             string whoWonInput = Console.ReadLine();
-                            if (whoWonInput == Winners[i].PlayerName || whoWonInput == Winners[i].PlayerID.ToString())
+                            if (whoWonInput == Winners[i].PlayerName.Title || whoWonInput == Winners[i].PlayerID.ToString())
                             {
                                 Console.WriteLine("You Choose: " + Winners[i].ToString());
                                 losers.Add(Winners[i + 1]);
                                 correctPlayerInput = true;
                             }
-                            else if (whoWonInput == Winners[i + 1].PlayerName || whoWonInput == Winners[i + 1].PlayerID.ToString())
+                            else if (whoWonInput == Winners[i + 1].PlayerName.Title || whoWonInput == Winners[i + 1].PlayerID.ToString())
                             {
                                 Console.WriteLine("You Choose: " + Winners[i + 1].ToString());
                                 losers.Add(Winners[i]);
@@ -81,7 +81,7 @@ namespace TournamentTree
                                 Console.WriteLine("Wrong Input! Try Again.");
                             }
                             if (correctPlayerInput)
-                                winnerRound.AddMatch(Winners[i].ToString(), Winners[i + 1].ToString(), whoWonInput == Winners[i].PlayerName || whoWonInput == Winners[i].PlayerID.ToString());
+                                winnerRound.AddMatch(Winners[i].ToString(), Winners[i + 1].ToString(), whoWonInput == Winners[i].PlayerName.Title || whoWonInput == Winners[i].PlayerID.ToString());
                             Console.WriteLine();
                         }
                     }
@@ -153,14 +153,14 @@ namespace TournamentTree
             List<Player> doubleLosers = new List<Player>();
             for (int i = 0; i < Losers.Count - 1; i += 2)
             {
-                if (Losers[i].PlayerID == 0 && Losers[i + 1].PlayerID == 0) // prüfen ob beides WildCards sind
+                if (Losers[i].PlayerID.Id == 0 && Losers[i + 1].PlayerID.Id == 0) // prüfen ob beides WildCards sind
                 {
                     doubleLosers.Add(Losers[i]);
                     loserRound.AddMatch(Losers[i].ToString(), Losers[i + 1].ToString(), false);
                 }
-                else if ((Losers[i].PlayerID == 0 || Losers[i + 1].PlayerID == 0)) // prüfen ob im Match eine Wildcard vorhanden ist
+                else if ((Losers[i].PlayerID.Id == 0 || Losers[i + 1].PlayerID.Id == 0)) // prüfen ob im Match eine Wildcard vorhanden ist
                 {
-                    if (Losers[i].PlayerID == 0)
+                    if (Losers[i].PlayerID.Id == 0)
                     {
                         doubleLosers.Add(Losers[i]);
                         loserRound.AddMatch(Losers[i].ToString(), Losers[i + 1].ToString(), false);
@@ -180,13 +180,13 @@ namespace TournamentTree
                     while (!correctPlayerInput)
                     {
                         string whoWonInput = Console.ReadLine();
-                        if (whoWonInput == Losers[i].PlayerName || whoWonInput == Losers[i].PlayerID.ToString())
+                        if (whoWonInput == Losers[i].PlayerName.Title || whoWonInput == Losers[i].PlayerID.ToString())
                         {
                             Console.WriteLine("You Choose: " + Losers[i].ToString());
                             doubleLosers.Add(Losers[i + 1]);
                             correctPlayerInput = true;
                         }
-                        else if (whoWonInput == Losers[i + 1].PlayerName || whoWonInput == Losers[i + 1].PlayerID.ToString())
+                        else if (whoWonInput == Losers[i + 1].PlayerName.Title || whoWonInput == Losers[i + 1].PlayerID.ToString())
                         {
                             Console.WriteLine("You Choose: " + Losers[i + 1].ToString());
                             doubleLosers.Add(Losers[i]);
@@ -197,7 +197,7 @@ namespace TournamentTree
                             Console.WriteLine("Wrong Input! Try Again.");
                         }
                         if (correctPlayerInput)
-                            loserRound.AddMatch(Losers[i].ToString(), Losers[i + 1].ToString(), whoWonInput == Losers[i].PlayerName || whoWonInput == Losers[i].PlayerID.ToString());
+                            loserRound.AddMatch(Losers[i].ToString(), Losers[i + 1].ToString(), whoWonInput == Losers[i].PlayerName.Title || whoWonInput == Losers[i].PlayerID.ToString());
                         Console.WriteLine();
                     }
                 }
@@ -243,18 +243,18 @@ namespace TournamentTree
             while (!correctPlayerInput)
             {
                 string whoWonInput = Console.ReadLine();
-                if (whoWonInput == winner.PlayerName || whoWonInput == winner.PlayerID.ToString())
+                if (whoWonInput == winner.PlayerName.Title || whoWonInput == winner.PlayerID.ToString())
                 {
                     Console.WriteLine("You Choose: " + winner.ToString());
                     Console.WriteLine("Winner of the Tournament: " + winner.ToString());
                     log.AddEntry("Winner: " + winner.ToString());
-                    var match = new TournamentBracketLogRoundMatch(winner.ToString(), loser.ToString(), whoWonInput == winner.PlayerName || whoWonInput == winner.PlayerID.ToString());
+                    var match = new TournamentBracketLogRoundMatch(winner.ToString(), loser.ToString(), whoWonInput == winner.PlayerName.Title || whoWonInput == winner.PlayerID.ToString());
                     TournamentDoubleKoLog.FinalMatches.Add(match);
                     break;
                 }
-                else if (whoWonInput == loser.PlayerName || whoWonInput == loser.PlayerID.ToString())
+                else if (whoWonInput == loser.PlayerName.Title || whoWonInput == loser.PlayerID.ToString())
                 {
-                    var match = new TournamentBracketLogRoundMatch(winner.ToString(), loser.ToString(), whoWonInput == winner.PlayerName || whoWonInput == winner.PlayerID.ToString());
+                    var match = new TournamentBracketLogRoundMatch(winner.ToString(), loser.ToString(), whoWonInput == winner.PlayerName.Title || whoWonInput == winner.PlayerID.ToString());
                     TournamentDoubleKoLog.FinalMatches.Add(match);
                     Console.WriteLine("You Choose: " + loser.ToString());
                     Console.WriteLine("Second Chance!");
@@ -263,14 +263,14 @@ namespace TournamentTree
                     while (!correctPlayerInput)
                     {
                         string WhoWonTournament = Console.ReadLine();
-                        if (WhoWonTournament == winner.PlayerName || WhoWonTournament == winner.PlayerID.ToString())
+                        if (WhoWonTournament == winner.PlayerName.Title || WhoWonTournament == winner.PlayerID.ToString())
                         {
                             Console.WriteLine("You Choose: " + winner.ToString());
                             Console.WriteLine("Winner of the Tournament: " + winner.ToString());
                             log.AddEntry("Winner: " + winner.ToString());
                             correctPlayerInput = true;
                         }
-                        else if (WhoWonTournament == loser.PlayerName || WhoWonTournament == loser.PlayerID.ToString())
+                        else if (WhoWonTournament == loser.PlayerName.Title || WhoWonTournament == loser.PlayerID.ToString())
                         {
                             Console.WriteLine("You Choose: " + loser.ToString());
                             Console.WriteLine("Winner of the Tournament: " + loser.ToString());
@@ -279,7 +279,7 @@ namespace TournamentTree
                         }
                         if (correctPlayerInput)
                         {
-                            var secondFinal = new TournamentBracketLogRoundMatch(winner.ToString(), loser.ToString(), WhoWonTournament == winner.PlayerName || WhoWonTournament == winner.PlayerID.ToString());
+                            var secondFinal = new TournamentBracketLogRoundMatch(winner.ToString(), loser.ToString(), WhoWonTournament == winner.PlayerName.Title || WhoWonTournament == winner.PlayerID.ToString());
                             TournamentDoubleKoLog.FinalMatches.Add(secondFinal);
                         }
                         else

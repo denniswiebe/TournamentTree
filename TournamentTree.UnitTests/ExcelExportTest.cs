@@ -37,16 +37,16 @@ namespace TournamentTree.UnitTests
 
             // Gruppen erzeugen
             var groupA = new List<Player>();
-            groupA.Add(new Player(PLAYER_FIVE, 5));
-            groupA.Add(new Player(PLAYER_THREE, 3));
-            groupA.Add(new Player(PLAYER_FOUR, 4));
-            groupA.Add(new Player(PLAYER_SEVEN, 7));
+            groupA.Add(new Player(new Name(PLAYER_FIVE), new Identification(5)));
+            groupA.Add(new Player(new Name(PLAYER_THREE), new Identification(3)));
+            groupA.Add(new Player(new Name(PLAYER_FOUR), new Identification(4)));
+            groupA.Add(new Player(new Name(PLAYER_SEVEN), new Identification(7)));
 
             var groupB = new List<Player>();
-            groupB.Add(new Player(PLAYER_SIX, 6));
-            groupB.Add(new Player(PLAYER_ONE, 1));
-            groupB.Add(new Player(PLAYER_EIGHT, 8));
-            groupB.Add(new Player(PLAYER_TWO, 2));
+            groupB.Add(new Player(new Name(PLAYER_SIX), new Identification(6)));
+            groupB.Add(new Player(new Name(PLAYER_ONE), new Identification(1)));
+            groupB.Add(new Player(new Name(PLAYER_EIGHT), new Identification(8)));
+            groupB.Add(new Player(new Name(PLAYER_TWO), new Identification(2)));
 
             // Gruppen hinzufügen
             TournamentGroupLog.Groups.Add(1, groupA);

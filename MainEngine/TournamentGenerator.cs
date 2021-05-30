@@ -162,7 +162,7 @@ namespace TournamentTree
             {
                 if (ValidateInputOfPlayerName(name))
                 {
-                    var player = new Player(name, idCounter);
+                    var player = new Player(new Name(name), new Identification(idCounter));
                     AllPlayers.Add(player);
                     idCounter++;
                 }               

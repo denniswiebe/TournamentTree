@@ -40,7 +40,7 @@ namespace TournamentTree
             bool check = true;
             for (int i = 0; i < playerList.Count() - 1; i++)
             {
-                if (playerList[i].PlayerID == playerList[i + 1].PlayerID)
+                if (playerList[i].PlayerID.ToString() == playerList[i + 1].PlayerID.ToString())
                 {
                     check = false;
                 }

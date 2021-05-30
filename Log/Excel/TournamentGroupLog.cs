@@ -69,7 +69,7 @@ namespace TournamentTree
                 {
                     matchRowNumber++;
                     var pCell = CellFinder.GetCell(worksheetPart.Worksheet, columnIndex, matchRowNumber);
-                    pCell.CellValue = new CellValue(player.PlayerName);
+                    pCell.CellValue = new CellValue(player.PlayerName.Title);
                     pCell.DataType = new EnumValue<CellValues>(CellValues.String);
 
                     var dCell = CellFinder.GetCell(worksheetPart.Worksheet, columnIndex + 1, matchRowNumber);

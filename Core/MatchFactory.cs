@@ -45,7 +45,7 @@ namespace TournamentTree.Core
             match.PlayerTwo.GoalDifference += secondNumber;
 
             // Add as match for the Log Engine
-            TournamentGroupLog.AddMatch(TournamentGroupLogMatch.Create(match.PlayerOne.PlayerName, match.PlayerTwo.PlayerName, firstNumber, secondNumber));
+            TournamentGroupLog.AddMatch(TournamentGroupLogMatch.Create(match.PlayerOne.PlayerName.Title, match.PlayerTwo.PlayerName.Title, firstNumber, secondNumber));
         }
 
         public bool CheckInputOfMatch(string input)
