@@ -12,5 +12,10 @@ namespace TournamentTree
         {
             Title = title;
         }
+
+        public override string ToString()
+        {
+            return Title;
+        }
     }
 }
