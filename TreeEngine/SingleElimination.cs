@@ -11,11 +11,12 @@ namespace TournamentTree
 
         public bool FirstTree { get; set; } = true;
 
-        public TournamentLog log = new TournamentLog();
+        public ILog log;
 
-        public SingleElimination(List<Player> players)
+        public SingleElimination(List<Player> players, ILog log)
         {
             Players = players;
+            this.log = log;
         }
 
         public SingleElimination()

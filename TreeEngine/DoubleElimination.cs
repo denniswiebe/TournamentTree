@@ -15,11 +15,12 @@ namespace TournamentTree
 
         public bool FirstLosers { get; set; } = true;
 
-        public TournamentLog log = new TournamentLog();
+        public ILog log;
 
-        public DoubleElimination(List<Player> players)
+        public DoubleElimination(List<Player> players, ILog log)
         {
             Winners = players;
+            this.log = log;
         }
 
         public DoubleElimination()

@@ -11,7 +11,7 @@ namespace TournamentTree.UnitTests
         [TestMethod]
         public void EliminateLosingPlayerTest()
         {
-            FakeObjects.FakeSingleElimination singleElimination = new FakeObjects.FakeSingleElimination();
+            FakeObjects.FakeSingleElimination singleElimination = new FakeObjects.FakeSingleElimination(new TournamentLog());
             singleElimination.EliminateLosingPlayers(singleElimination.losers);
 
             Assert.IsTrue(singleElimination.Players.Count == 2);
@@ -24,7 +24,7 @@ namespace TournamentTree.UnitTests
         [TestMethod]
         public void CreateTreeTest()
         {
-            FakeObjects.FakeSingleElimination singleElimination = new FakeObjects.FakeSingleElimination();
+            FakeObjects.FakeSingleElimination singleElimination = new FakeObjects.FakeSingleElimination(new TournamentLog());
             singleElimination.FirstTree = false;
 
             string showTree = "Bracket";

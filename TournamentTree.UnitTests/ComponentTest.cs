@@ -29,7 +29,7 @@ namespace TournamentTree.UnitTests
         [TestMethod]
         public void TestShufflePlayers()
         {
-            FakeObjects.FakeSingleElimination tournamentTree = new FakeObjects.FakeSingleElimination();
+            FakeObjects.FakeSingleElimination tournamentTree = new FakeObjects.FakeSingleElimination(new TournamentLog());
             tournamentTree.ShufflePlayers(tournamentTree.EightPlayers);
 
             bool isShuffled = false;

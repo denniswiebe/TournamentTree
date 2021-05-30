@@ -15,7 +15,7 @@ namespace TournamentTree.UnitTests.FakeObjects
         public Player playerC;
         public Player playerD;
 
-        public FakeSingleElimination()
+        public FakeSingleElimination(ILog log)
         {
             playerA = new Player("A", 1);
             playerB = new Player("B", 2);
@@ -33,7 +33,7 @@ namespace TournamentTree.UnitTests.FakeObjects
                 playerA,
                 playerC
             };
-
+            this.log = log;
         }
     }
 }

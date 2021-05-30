@@ -48,7 +48,7 @@ namespace TournamentTree
             return check;
         }
 
-        public void CreateLogOfTournament(TournamentLog log, bool doubleKO = false)
+        public void CreateLogOfTournament(ILog log, bool doubleKO = false)
         {
             Console.WriteLine("\nDo you want a Log of the Tournament? Y/N");
             if (Console.ReadKey().Key == ConsoleKey.Y)

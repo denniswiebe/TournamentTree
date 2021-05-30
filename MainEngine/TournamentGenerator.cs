@@ -87,7 +87,7 @@ namespace TournamentTree
 
                     Console.Clear();
                     Console.WriteLine("Creating Tournament Tree!");
-                    SingleElimination singleElimination = new SingleElimination(groupPhase.RemainingPlayers);
+                    SingleElimination singleElimination = new SingleElimination(groupPhase.RemainingPlayers, new TournamentLog());
                     tournamentTree.SetElimination(singleElimination);
                 }
                 else
@@ -104,12 +104,12 @@ namespace TournamentTree
                 Console.WriteLine("\nDo you want a Double KO System? Y/N");
                 if (Console.ReadKey().Key == ConsoleKey.Y)
                 {
-                    DoubleElimination doubleElimination = new DoubleElimination(AllPlayers);
+                    DoubleElimination doubleElimination = new DoubleElimination(AllPlayers, new TournamentLog());
                     tournamentTree.SetElimination(doubleElimination);
                 }
                 else
                 {
-                    SingleElimination singleElimination = new SingleElimination(AllPlayers);
+                    SingleElimination singleElimination = new SingleElimination(AllPlayers, new TournamentLog());
                     tournamentTree.SetElimination(singleElimination);
                 }
             }
