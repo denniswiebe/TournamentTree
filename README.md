@@ -12,7 +12,7 @@ Die Dokumentation befindet sich direkt hier im Repository als <b>TournamentGener
 ## Docker
 Die Anwendung läuft mithilfe von Docker und wurde auf https://labs.play-with-docker.com/ getestet.
 
-Der Befehl ist: docker run -it denniswi/tournament-generator
+Der Befehl zum Starten über Docker ist: <b>docker run -it denniswi/tournament-generator</b>
 
 Ausschnitt aus dem Playground von Docker:
 ![image](https://user-images.githubusercontent.com/56267483/120110819-772e8480-c16f-11eb-836d-30f056793e9d.png)
