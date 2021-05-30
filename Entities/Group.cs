@@ -6,9 +6,6 @@ using System.Text;
 
 namespace TournamentTree
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public class Group
     {
         public IList<Player> Players { get; set; }

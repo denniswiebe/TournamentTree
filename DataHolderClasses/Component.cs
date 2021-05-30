@@ -10,7 +10,6 @@ namespace TournamentTree
     /// </summary>
     public class Component
     {
-
         public void ShuffleMatches(IList<Match> matches)
         {
             Random rand = new Random();

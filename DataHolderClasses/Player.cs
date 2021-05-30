@@ -19,8 +19,6 @@ namespace TournamentTree
 
         public int GoalDifference { get; set; }
 
-        public int Placement { get; set; }
-
         public bool IsWildCard { get; set; } = false;
 
         public Player(Name name, Identification id)
